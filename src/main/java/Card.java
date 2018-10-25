@@ -2,12 +2,10 @@ package main.java;
 
 public class Card {
     private int id;
-    private Name name;
+    private String name;
     private State state;
 
-    public Card(int id) {
-        this.id = id;
-
+    public Card() {
         state = State.hidden;
     }
 
@@ -19,11 +17,11 @@ public class Card {
         this.id = id;
     }
 
-    public Name getName() {
+    public String getName() {
         return name;
     }
 
-    public void setName(Name name) {
+    public void setName(String name) {
         this.name = name;
     }
 

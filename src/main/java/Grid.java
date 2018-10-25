@@ -1,19 +1,21 @@
 package main.java;
 
 public class Grid {
+    private int cardsNumber;
     private int width;
     private int height;
 
     private final Card grid[][];
 
-    public Grid(int width, int height, Enum<Name> names) {
+    public Grid(int cardsTypes) {
+        this.cardsNumber = cardsTypes * 2;
         this.width = width;
         this.height = height;
         grid = new Card[width][height];
 
         for(int i = 0; i < width; i++) {
             for(int j = 0; j < height; j++) {
-                grid[i][j] = new Card(i);
+                grid[i][j] = new Card();
             }
         }
 
