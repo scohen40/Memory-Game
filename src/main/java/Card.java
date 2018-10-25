@@ -5,9 +5,8 @@ public class Card {
     private Name name;
     private State state;
 
-    public Card(int id, Name name) {
+    public Card(int id) {
         this.id = id;
-        this.name = name;
 
         state = State.hidden;
     }
