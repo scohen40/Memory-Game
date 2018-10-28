@@ -4,10 +4,8 @@ import java.util.*;
 
 public class Cards {
     private List<Card> cards;
-    private int numOfMatches;
 
     public Cards(int numOfMatches) {
-        this.numOfMatches = numOfMatches;
         cards = new ArrayList<Card>();
     }
 
@@ -17,14 +15,6 @@ public class Cards {
 
     public void setCards(List<Card> cards) {
         this.cards = cards;
-    }
-
-    public int getNumOfMatches() {
-        return numOfMatches;
-    }
-
-    public void setNumOfMatches(int numOfMatches) {
-        this.numOfMatches = numOfMatches;
     }
 
 }
