@@ -26,6 +26,7 @@ public class Cards {
     public void setNumOfMatches(int numOfMatches) {
         this.numOfMatches = numOfMatches;
     }
+
 }
 
 //dynamically add the cards list to a rectangular(if possible) 2d array

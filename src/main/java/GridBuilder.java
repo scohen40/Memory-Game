@@ -2,55 +2,45 @@ package main.java;
 
 import java.util.Arrays;
 
+/**
+ * The GridBuilder class creates uses a cardBuilder object to create a mixed deck of cards and then fills a grid that
+ * it creates. It takes a number of rows and columns for the grid dimensions. It uses those numbers to also figure
+ * out the number of matches in the card deck and on the grid (in the game). The highest number of matches cells in the
+ * grid can be 36, because the highest number of matches is 18. Therefore the highest number of rows and columns is 6x6.
+ * This rule would have to be stipulated from the outside.
+ */
 public class GridBuilder {
+    int rows;
+    int columns;
+    private int numberOfMatches;
     private Grid grid;
-    int width;
-    int height;
+    private CardsBuilder cardsBuilder;
+
+
     private String[] names;
 
-    public GridBuilder(int width, int height, Name name) {
-        this.width = width;
-        this.height = height;
+    public GridBuilder(int rows, int columns) {
+        this.rows = rows;
+        this.columns = columns;
 
-        grid = new Grid(width, height);
+        numberOfMatches = (rows * columns) / 2;
 
-        //put all the enum names into the names array
-        names = setNamesWithEnum(name);
+        grid = new Grid(rows, columns);
 
-        fillGrid();
+        cardsBuilder = new CardsBuilder(numberOfMatches);
+
+        fillGrid(cardsBuilder.getCards());
     }
 
-    /**
-     * The fillGrid() method populates the cards in the grid with names from the Name enum. It fills half of it up
-     * with as many names as allowed and then fills the second half with a copy of the first half, to have doubles of
-     * every name.
-     * Then it shuffles all the names to have a random ordered grid.
-     */
-    public void fillGrid() {
-        int counter = 0;
-        //fill first half of grid
-        for(int row = 0; row < height/2; row++) {
-            for(int col = 0; col < width; col++) {
-                grid.getGrid()[row][col].setName(names[counter]);
-                counter++;
+
+    public void fillGrid(Cards cards) {
+        int cardsCounter = 0;
+        for (int i = 0; i < rows; i++) {
+            for(int j = 0; j < columns; j++) {
+                grid.getGrid()[i][j] = cardsBuilder.getCards().getCards()[cardsCounter];
+                cardsCounter = 0;
             }
         }
-        counter = 0;
-        //fil second half of grid
-        for(int row = height/2; row < height; row++) {
-            for(int col = 0; col < width; col++) {
-                grid.getGrid()[row][col].setName(names[counter]);
-                counter++;
-            }
-        }
-        //shuffle the whole grid
-        for(int row = 0, row < grid.getGrid().length; row++) {
-
-        }
-    }
-
-    public String[] setNamesWithEnum(Name name) {
-        return Arrays.toString(name.values()).replaceAll("^.|.$", "").split(", ");
     }
 
 

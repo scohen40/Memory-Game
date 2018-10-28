@@ -1,46 +1,41 @@
 package main.java;
 
 public class Grid {
-    private int cardsNumber;
-    private int width;
-    private int height;
+    private int rows;
+    private int columns;
 
     private final Card grid[][];
 
-    public Grid(int cardsTypes) {
-        this.cardsNumber = cardsTypes * 2;
-        this.width = width;
-        this.height = height;
-        grid = new Card[width][height];
-
-        for(int i = 0; i < width; i++) {
-            for(int j = 0; j < height; j++) {
+    public Grid(int rows, int columns) {
+        this.rows = rows;
+        this.columns = columns;
+        grid = new Card[rows][columns];
+        for(int i = 0; i < rows; i++) {
+            for(int j = 0; j < columns; j++) {
                 grid[i][j] = new Card();
             }
         }
 
     }
 
-    public int getWidth() {
-        return width;
+    public int getRows() {
+        return rows;
     }
 
-    public void setWidth(int width) {
-        this.width = width;
+    public void setRows(int rows) {
+        this.rows = rows;
     }
 
-    public int getHeight() {
-        return height;
+    public int getColumns() {
+        return columns;
     }
 
-    public void setHeight(int height) {
-        this.height = height;
+    public void setColumns(int columns) {
+        this.columns = columns;
     }
 
     public Card[][] getGrid() {
         return grid;
     }
-
-
 
 }
