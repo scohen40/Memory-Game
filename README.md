@@ -9,8 +9,6 @@ A simple memory picture card game.
 
 **TO DO**
 ***
-* Card Tests Class
-* Cards Tests Class
 * Grid Tests Class
 * Grid Generation Tests Class
 * Game/Guess Algorithm Class
