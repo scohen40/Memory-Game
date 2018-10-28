@@ -37,8 +37,8 @@ public class GridBuilder {
         int cardsCounter = 0;
         for (int i = 0; i < rows; i++) {
             for(int j = 0; j < columns; j++) {
-                grid.getGrid()[i][j] = cardsBuilder.getCards().getCards()[cardsCounter];
-                cardsCounter = 0;
+                grid.getGrid()[i][j] = cards.getCards().get(cardsCounter);
+                cardsCounter++;
             }
         }
     }
