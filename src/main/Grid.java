@@ -10,12 +10,6 @@ public class Grid {
         this.rows = rows;
         this.columns = columns;
         grid = new Card[rows][columns];
-        for(int i = 0; i < rows; i++) {
-            for(int j = 0; j < columns; j++) {
-                grid[i][j] = new Card();
-            }
-        }
-
     }
 
     public int getRows() {

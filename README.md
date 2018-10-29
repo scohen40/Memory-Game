@@ -9,8 +9,6 @@ A simple memory picture card game.
 
 **TO DO**
 ***
-* Grid Tests Class
-* Grid Generation Tests Class
 * Game/Guess Algorithm Class
 * Game/Guess Algorithm Tests Class
 * Game GUI Class
@@ -18,6 +16,11 @@ A simple memory picture card game.
 * Card Components - Each card is it's own component/Panel.
 * Images
 * Click Listener Flipping Mechanism
+
+**GRID REQUIREMENTS**
+***
+* The highest number of Rows and Columns is 6, or the number of card names must be raised.
+* Either all Rows or all Columns must be even so that the number of Matches is a whole number.
 
 **OPTIONAL**
 ***

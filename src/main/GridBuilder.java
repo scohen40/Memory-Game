@@ -5,12 +5,15 @@ package main;
  * it creates. It takes a number of rows and columns for the grid dimensions. It uses those numbers to also figure
  * out the number of matches in the card deck and on the grid (in the game). The highest number of matches cells in the
  * grid can be 36, because the highest number of matches is 18. Therefore the highest number of rows and columns is 6x6.
- * This rule would have to be stipulated from the outside.
- */
+ * Additionally to make sure that the number of Matches of a whole number, the number of columns or the numner of rows
+ * must be even.
+ * These rules would have to be stipulated from the outside.
+ * */
 public class GridBuilder {
     int rows;
     int columns;
     private int numberOfMatches;
+
     private Grid grid;
     private CardsBuilder cardsBuilder;
 
@@ -41,5 +44,9 @@ public class GridBuilder {
         }
     }
 
+
+    public Grid getGrid() {
+        return grid;
+    }
 
 }
