@@ -1,18 +1,15 @@
 package main.GUI;
 
-import javafx.scene.paint.Stop;
 import main.CardsBuilder;
 import main.GridBuilder;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.geom.AffineTransform;
 import java.awt.geom.Ellipse2D;
-import java.awt.geom.Point2D;
+import java.awt.image.BufferedImage;
+import java.util.List;
 
 public class GameView extends JComponent {
-
-
 
     private int rows;
     private int cols;
@@ -24,20 +21,20 @@ public class GameView extends JComponent {
     private CardsBuilder cards;
 
     private CardIcons icons;
+    private List<BufferedImage> iconList;
 
     public GameView() {
         gridBuilder = new GridBuilder(rows, cols);
         cards = gridBuilder.getCardsBuilder();
         icons = new CardIcons(cards);
-
-
+        icons.assignCardIcons();
     }
 
     public void paintComponent(Graphics graphics){
         super.paintComponent(graphics);
         Graphics2D g = (Graphics2D) graphics;
         paintGrid(g);
-        paintBoard(g);
+        paintCards(g);
 
     }
 
@@ -48,13 +45,13 @@ public class GameView extends JComponent {
         g.setColor(Color.black);
         BasicStroke bs = new BasicStroke(3, 1, BasicStroke.JOIN_ROUND);
         g.setStroke(bs);
-        Color lightGreen = new Color(220, 240, 190);
-        g.setColor(lightGreen);
+        Color backgroundColor = new Color(205, 212, 205);
+        g.setColor(backgroundColor);
         g.fillRect(0, 0, (rows * cardWidth), (cols * cardHeight));
 
     }
 
-    private void paintBoard(Graphics graphics){
+    private void paintCards(Graphics graphics){
         cardWidth = getWidth() / rows;
         cardHeight = getHeight() / cols;
         Point point = new Point(0,0);
@@ -63,23 +60,30 @@ public class GameView extends JComponent {
 
         for(int i = 0; i < rows ; i++){
             for(int j = 0; j < cols; j++){
-                icons.setCardHiddenIcon();
-                point.setLocation(getX()+ (cardWidth*j), getY() + (cardHeight*i));
+                point.setLocation(getX()+ (cardWidth * j), getY() + (cardHeight * i));
                 g.setColor(Color.black);
-                paintCard(g, point.x, point.y);
-              //  g.drawOval(point.x-15, point.y-15, 140, 140);
-                g.drawImage(icons.getCardHiddenIcon(), point.x, point.y, null);
-                System.out.println(point.x +", "+point.y);
+                paintBoard(g, point.x, point.y);
+                g.drawImage(icons.getHiddenCardIcon(), point.x, point.y, null);
+               /* if (iconList.get(i).equals("hidden")) {
+
+                }
+                else if (iconList.get(i).equals("matched")) {
+                    Color backgroundColor = new Color(205, 212, 205);
+                    g.setColor(backgroundColor);
+                    g.fillOval(point.x, point.y, cardWidth - 45, cardHeight - 30);
+                }
+                else if (iconList.get(i).equals("guessed")) {
+                    g.setColor(Color.pink);
+                    g.drawImage(icons.getCardIconList().get(i), point.x, point.y, null);
+                }*/
 
             }
-
-
 
         }
 
     }
 
-    private void paintCard(Graphics graphics, int x, int y){
+    private void paintBoard(Graphics graphics, int x, int y){
         cardWidth = getWidth() / rows;
         cardHeight = getHeight() / cols;
         Graphics2D g = (Graphics2D) graphics;
@@ -104,7 +108,9 @@ public class GameView extends JComponent {
         g.fillOval(x-15, y-20, cardWidth-35, cardHeight-20);
 
     }
-    
+    public void testIcons(){
+        icons.assignCardIcons();
+    }
     public void setRows(int rows) {
         this.rows = rows;
     }

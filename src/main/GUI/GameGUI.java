@@ -10,8 +10,8 @@ public class GameGUI extends JFrame {
 
     private JPanel gridPanel = new JPanel();
     private GameView gameView = new GameView();
-    private int rows = 5;
-    private int cols = 5;
+    private int rows = 6;
+    private int cols = 6;
 
     public GameGUI() {
         gameView.setRows(rows);
