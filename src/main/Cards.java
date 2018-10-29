@@ -6,7 +6,7 @@ public class Cards {
     private List<Card> cards;
 
     public Cards() {
-        cards = new ArrayList<Card>();
+        cards = new ArrayList<>();
     }
 
     public List<Card> getCards() {

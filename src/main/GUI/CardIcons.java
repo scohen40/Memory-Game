@@ -1,5 +1,6 @@
 package main.GUI;
 
+import main.Card;
 import main.CardsBuilder;
 import main.State;
 
@@ -14,37 +15,18 @@ import static javax.imageio.ImageIO.read;
 
 public class CardIcons {
 
-    private List<BufferedImage> cardIconList;
-    protected HashMap<String, BufferedImage> cardIconsMap;
+    protected HashMap<Integer, BufferedImage> cardIconsMap;
+
     private CardsBuilder cardsBuilder;
     private BufferedImage cardHiddenIcon;
 
     public CardIcons(CardsBuilder cardsBuilder) {
-        cardIconList = new ArrayList<>();
         this.cardsBuilder = cardsBuilder;
         cardIconsMap = new HashMap<>();
         setHiddenCardIcon();
     }
 
 
-    protected void setCardIcons() {
-        BufferedImage cardIcon;
-        StringBuilder cardName = new StringBuilder();
-        for (int i = 0; i < cardsBuilder.getNames().length; i++) {
-            cardName.append("src/images/");
-            cardName.append(cardsBuilder.getNames()[i]);
-            cardName.append(".png");
-            try {
-                cardIcon = read(new File(cardName.toString()));
-                cardIconList.add(cardIcon);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-
-            cardName.setLength(0);
-        }
-
-    }
 
     protected void assignCardIcons() {
         BufferedImage cardIcon = null;
@@ -54,19 +36,22 @@ public class CardIcons {
             cardName.append("src/images/");
             cardName.append(name);
             cardName.append(".png");
+            int cardId = cardsBuilder.getCards().getCards().get(i).getId();
             try {
                 cardIcon = read(new File(cardName.toString()));
             } catch (IOException e) {
                 e.printStackTrace();
             }
-            cardIconsMap.put(name, cardIcon);
+            cardIconsMap.put(cardId, cardIcon);
             cardName.setLength(0);
         }
+        System.out.println(cardsBuilder.getCards().getCards().size());
+    }
+    protected HashMap<Integer, BufferedImage> getCardIconsMap(){
+        return cardIconsMap;
+    }
 
-    }
-    protected List<BufferedImage> getCardIconList(){
-        return getCardIconList();
-    }
+
 
     protected void setHiddenCardIcon(){
         try {
@@ -80,7 +65,8 @@ public class CardIcons {
         return cardHiddenIcon;
     }
 
-    protected State getCurrentCardStatus(int index){
-       return cardsBuilder.getCards().getCards().get(index).getState();
+    protected State getCurrentCardStatus(int id){
+        return cardsBuilder.getCards().getCards().get(id).getState();
+
     }
 }

@@ -1,12 +1,13 @@
 package main.GUI;
 
+import main.Card;
 import main.CardsBuilder;
 import main.GridBuilder;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.geom.Ellipse2D;
-import java.awt.image.BufferedImage;
+import java.util.ArrayList;
 import java.util.List;
 
 public class GameView extends JComponent {
@@ -19,23 +20,31 @@ public class GameView extends JComponent {
     private GridBuilder gridBuilder;
 
     private CardsBuilder cards;
+    private List<Card> cardSet;
 
     private CardIcons icons;
-    private List<BufferedImage> iconList;
 
     public GameView() {
         gridBuilder = new GridBuilder(rows, cols);
+        cardSet = new ArrayList<>();
+        createCardSet();
         cards = gridBuilder.getCardsBuilder();
         icons = new CardIcons(cards);
+
         icons.assignCardIcons();
     }
-
+    public void createCardSet(){
+        for(int i = 0; i < gridBuilder.getRows()+gridBuilder.getColumns(); i++){
+            cardSet.get(i).setId(i);
+        }
+        System.out.println(rows+cols);
+    }
     public void paintComponent(Graphics graphics){
         super.paintComponent(graphics);
         Graphics2D g = (Graphics2D) graphics;
         paintGrid(g);
         paintCards(g);
-
+      //  paintStateOfIcons(g);
     }
 
     public void paintGrid(Graphics graphics){
@@ -55,31 +64,47 @@ public class GameView extends JComponent {
         cardWidth = getWidth() / rows;
         cardHeight = getHeight() / cols;
         Point point = new Point(0,0);
-        icons.setCardIcons();
         Graphics2D g = (Graphics2D) graphics;
 
         for(int i = 0; i < rows ; i++){
-            for(int j = 0; j < cols; j++){
-                point.setLocation(getX()+ (cardWidth * j), getY() + (cardHeight * i));
+            for(int j = 0; j < cols; j++) {
+                point.setLocation(getX() + (cardWidth * j), getY() + (cardHeight * i));
                 g.setColor(Color.black);
                 paintBoard(g, point.x, point.y);
                 g.drawImage(icons.getHiddenCardIcon(), point.x, point.y, null);
-               /* if (iconList.get(i).equals("hidden")) {
 
-                }
-                else if (iconList.get(i).equals("matched")) {
-                    Color backgroundColor = new Color(205, 212, 205);
-                    g.setColor(backgroundColor);
-                    g.fillOval(point.x, point.y, cardWidth - 45, cardHeight - 30);
-                }
-                else if (iconList.get(i).equals("guessed")) {
-                    g.setColor(Color.pink);
-                    g.drawImage(icons.getCardIconList().get(i), point.x, point.y, null);
-                }*/
 
             }
 
         }
+
+    }
+
+    public void paintStateOfIcons(Graphics graphics){
+        cardWidth = getWidth() / rows;
+        cardHeight = getHeight() / cols;
+        Point point = new Point(0,0);
+        Graphics2D g = (Graphics2D) graphics;
+        icons.assignCardIcons();
+        int cardID;
+        for(int i = 0; i < icons.getCardIconsMap().size(); i++){
+            cardID = cards.getCards().getCards().get(i).getId();
+            if (icons.getCardIconsMap().get(i).equals(cardID)) {
+                if(icons.getCurrentCardStatus(cardID).equals("matched")){
+                    Color backgroundColor = new Color(205, 212, 205);
+                    g.setColor(backgroundColor);
+                    g.fillOval(point.x, point.y, cardWidth - 45, cardHeight - 30);
+                }
+                else if (icons.getCurrentCardStatus(cardID).equals("guessed")) {
+                    g.setColor(Color.pink);
+                    g.fillOval(point.x, point.y, cardWidth - 45, cardHeight - 30);
+                    // g.drawImage(icons.getCardIconsMap().get(i), point.x, point.y, null);
+            }
+
+            }
+        }
+
+
 
     }
 
@@ -90,7 +115,7 @@ public class GameView extends JComponent {
 
         g.setColor(Color.white);
         g.fillOval(x-15, y-20, cardWidth-35, cardHeight-20);
-        BasicStroke bs = new BasicStroke(11, 1, BasicStroke.JOIN_ROUND);
+        BasicStroke bs = new BasicStroke(11, 2, BasicStroke.CAP_ROUND);
         g.setStroke(bs);
         g.setColor(Color.lightGray);
         g.drawOval(x-11, y-16, cardWidth-45, cardHeight-30);
@@ -108,9 +133,9 @@ public class GameView extends JComponent {
         g.fillOval(x-15, y-20, cardWidth-35, cardHeight-20);
 
     }
-    public void testIcons(){
-        icons.assignCardIcons();
-    }
+
+
+
     public void setRows(int rows) {
         this.rows = rows;
     }
@@ -118,6 +143,5 @@ public class GameView extends JComponent {
     public void setCols(int cols) {
         this.cols = cols;
     }
-
 
 }
