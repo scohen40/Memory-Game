@@ -51,6 +51,10 @@ public class CardsBuilder {
         return cards;
     }
 
+    public String[] getNames(){
+        return names;
+    }
+
     public void setCards(Cards cards) {
         this.cards = cards;
     }

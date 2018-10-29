@@ -18,7 +18,7 @@ public class GridBuilder {
     private CardsBuilder cardsBuilder;
 
 
-    private String[] names;
+    private String[] names; //never used
 
     public GridBuilder(int rows, int columns) {
         this.rows = rows;
@@ -47,6 +47,10 @@ public class GridBuilder {
 
     public Grid getGrid() {
         return grid;
+    }
+
+    public CardsBuilder getCardsBuilder(){
+        return cardsBuilder;
     }
 
 }
