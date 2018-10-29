@@ -1,6 +1,4 @@
-package main.java;
-
-import java.util.Arrays;
+package main;
 
 /**
  * The GridBuilder class creates uses a cardBuilder object to create a mixed deck of cards and then fills a grid that

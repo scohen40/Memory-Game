@@ -1,11 +1,11 @@
-package main.java;
+package main;
 
 import java.util.*;
 
 public class Cards {
     private List<Card> cards;
 
-    public Cards(int numOfMatches) {
+    public Cards() {
         cards = new ArrayList<Card>();
     }
 

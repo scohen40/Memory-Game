@@ -1,4 +1,4 @@
-package main.java;
+package main;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -11,9 +11,9 @@ public class CardsBuilder {
 
     public CardsBuilder(int numberOfMatches) {
         this.numberOfMatches = numberOfMatches;
-        cards = new Cards(numberOfMatches);
+        cards = new Cards();
         names = setNamesFromEnum();
-        buildCards();
+        buildCards(cards, numberOfMatches);
         shuffleCards(cards.getCards());
     }
 
@@ -29,16 +29,20 @@ public class CardsBuilder {
      * The method buildDeck() takes the number of matches and creates a deck of cards with that number of pairs of
      * names from the emum class Name, the highest amount being the number of names in that enum class.
      */
-    private void buildCards() {
+    public void buildCards(Cards deck, int numberOfMatches) {
         for(int i = 0; i < numberOfMatches; i++) {
             Card card = new Card();
             card.setName(names[i]);
-            cards.getCards().add(card);
+            deck.getCards().add(card);
         }
-
+        for(int i = 0; i < numberOfMatches; i++) {
+            Card card = new Card();
+            card.setName(names[i]);
+            deck.getCards().add(card);
+        }
     }
 
-    private void shuffleCards(List cards) {
+    public void shuffleCards(List cards) {
         Collections.shuffle(cards);
     }
 
