@@ -1,22 +1,24 @@
 package main;
 
 public enum Name {
-    glasses,
-    flower,
-    chocolate,
-    sushi,
-    bicycle,
-    computer,
-    mouse,
-    coffee,
-    book,
-    horse,
-    girl,
-    pencil,
-    clock,
+
+    airplane,
     backpack,
-    soda,
+    bicycle,
+    book,
+    chocolate,
+    clock,
+    coffee,
     dog,
-    boot,
-    cup
-}
+    donut,
+    flower,
+    glasses,
+    popcorn,
+    paint,
+    pencil,
+    rainbow,
+    soda,
+    snowman,
+    umbrella
+
+    }
