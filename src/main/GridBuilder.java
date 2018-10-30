@@ -44,13 +44,7 @@ public class GridBuilder {
         }
     }
 
-    public int getRows() {
-        return rows;
-    }
 
-    public int getColumns() {
-        return columns;
-    }
 
     public Grid getGrid() {
         return grid;

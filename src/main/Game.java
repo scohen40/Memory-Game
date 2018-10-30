@@ -8,32 +8,37 @@ public class Game {
 
     private GridBuilder gridBuilder;
     private CardsBuilder cardsBuilder;
-    private List<Card> cardList;
-    Card card;
-    int rows = 6;
-    int cols = 6;
+    private List<Card> cardSet;
+
     public Game(int rows, int cols){
 
         gridBuilder = new GridBuilder(rows, cols);
-        cardList = new ArrayList<>();
-        Card card = new Card();
-        createCardSet();
-
+        cardsBuilder = gridBuilder.getCardsBuilder();
+        cardSet = cardsBuilder.getCards().getCards();
     }
 
-    public void createCardSet(){
-        for(int i = 0; i < rows+cols; i++){
-            int id = i;
-            cardList.set(id, card);
 
+
+
+    @Override
+    public String toString(){
+        StringBuilder sb = new StringBuilder();
+        for(int i = 0; i< cardSet.size(); i++){
+            sb.append("- ");
+            sb.append(cardSet.get(i).getName());
+            sb.append("\n");
         }
-        System.out.println(cardList.size());
+        return sb.toString();
+    }
 
+    public void printGridSize(){
+        System.out.println(cardSet.size());
     }
 
     public static void main(String args[]) {
 
-    Game game = new Game(6,6);
-
+    Game game = new Game(4,4);
+    game.printGridSize();
+    System.out.println(game.toString());
     }
 }

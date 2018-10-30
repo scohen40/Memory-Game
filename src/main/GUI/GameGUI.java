@@ -1,6 +1,7 @@
 package main.GUI;
 
 import main.CardsBuilder;
+import main.Game;
 
 import javax.swing.*;
 import javax.swing.border.Border;
@@ -9,9 +10,9 @@ import java.awt.*;
 public class GameGUI extends JFrame {
 
     private JPanel gridPanel = new JPanel();
-    private GameView gameView = new GameView();
-    private int rows = 6;
-    private int cols = 6;
+    private int rows = 4;
+    private int cols = 4;
+    private GameView gameView = new GameView(rows, cols);
 
     public GameGUI() {
         gameView.setRows(rows);
@@ -26,7 +27,6 @@ public class GameGUI extends JFrame {
         gridPanel.setLayout(new BorderLayout(2, 1));
 
         gridPanel.add(gameView, BorderLayout.CENTER);
-
         add(gridPanel);
     }
 

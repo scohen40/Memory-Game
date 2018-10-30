@@ -8,6 +8,7 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
@@ -15,14 +16,17 @@ import static javax.imageio.ImageIO.read;
 
 public class CardIcons {
 
-    protected HashMap<Integer, BufferedImage> cardIconsMap;
+    protected HashMap<String, BufferedImage> cardIconsMap;
 
     private CardsBuilder cardsBuilder;
     private BufferedImage cardHiddenIcon;
+    private List<Card> cardSet;
 
     public CardIcons(CardsBuilder cardsBuilder) {
-        this.cardsBuilder = cardsBuilder;
         cardIconsMap = new HashMap<>();
+
+        this.cardsBuilder = cardsBuilder;
+        cardSet = cardsBuilder.getCards().getCards();
         setHiddenCardIcon();
     }
 
@@ -31,23 +35,25 @@ public class CardIcons {
     protected void assignCardIcons() {
         BufferedImage cardIcon = null;
         StringBuilder cardName = new StringBuilder();
-        for (int i = 0; i < cardsBuilder.getNames().length; i++) {
+        for (int i = 0; i < cardSet.size(); i++) {
+
             String name = cardsBuilder.getNames()[i];
+
             cardName.append("src/images/");
             cardName.append(name);
             cardName.append(".png");
-            int cardId = cardsBuilder.getCards().getCards().get(i).getId();
             try {
                 cardIcon = read(new File(cardName.toString()));
+                cardIconsMap.put(name, cardIcon);
+
             } catch (IOException e) {
                 e.printStackTrace();
             }
-            cardIconsMap.put(cardId, cardIcon);
+
             cardName.setLength(0);
         }
-        System.out.println(cardsBuilder.getCards().getCards().size());
     }
-    protected HashMap<Integer, BufferedImage> getCardIconsMap(){
+    protected HashMap<String, BufferedImage> getCardIconsMap(){
         return cardIconsMap;
     }
 
@@ -65,8 +71,28 @@ public class CardIcons {
         return cardHiddenIcon;
     }
 
-    protected State getCurrentCardStatus(int id){
-        return cardsBuilder.getCards().getCards().get(id).getState();
+    protected State getCurrentCardStatus(String cardName){
+        int index = getCardIndex(cardName);
+        return cardsBuilder.getCards().getCards().get(index).getState();
+    }
 
+    private int getCardIndex(String cardName){
+        int cardIndex = 0;
+        for(int i = 0; i < cardsBuilder.getNames().length; i++){
+            if(cardsBuilder.getNames()[i].equals(cardName)){
+                cardIndex = i;
+            }
+        }
+        return cardIndex;
+    }
+    @Override
+    public String toString(){
+        StringBuilder sb = new StringBuilder();
+        for(int i = 0; i< cardSet.size(); i++){
+            sb.append("- ");
+            sb.append(cardSet.get(i).getName());
+            sb.append("\n");
+        }
+        return sb.toString();
     }
 }

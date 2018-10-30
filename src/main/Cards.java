@@ -1,9 +1,11 @@
 package main;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class Cards {
     private List<Card> cards;
+
 
     public Cards() {
         cards = new ArrayList<>();
@@ -16,6 +18,9 @@ public class Cards {
     public void setCards(List<Card> cards) {
         this.cards = cards;
     }
+
+
+
 
 }
 
