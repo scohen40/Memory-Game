@@ -28,46 +28,30 @@ public class CardIcons {
 
         this.cardsBuilder = cardsBuilder;
         cardSet = cardsBuilder.getCards().getCards();
-        assignCardIcon();
+        assignCardIcons();
+        assignHiddenCardIcon();
     }
 
-    private void assignCardIcon(){
-        cardSet.get(4).setViewing(true);
-       for(int i = 0; i < cardSet.size(); i++){
-           if(cardSet.get(i).isViewing()){
-               String name = cardSet.get(i).getName();
-               assignCardIcon(name);
-           }
-       }
+    public List<Card> getCardSet() {
+        return cardSet;
     }
 
-    public BufferedImage getCardIcon(){
+    private void lookupCardIcon(int index){
+         String name = cardSet.get(index).getName();
+         assignCardIcon(name);
+
+    }
+
+    public BufferedImage getCardIcon(int index){
+        lookupCardIcon(index);
         return cardIcon;
     }
 
     protected void assignCardIcons() {
-        BufferedImage cardIcon = null;
-        StringBuilder cardName = new StringBuilder();
-        String tag = "_b";
+
         for (int i = 0; i < cardSet.size(); i++) {
-
             String name = cardsBuilder.getNames()[i];
-
-            cardName.append("src/images/");
-            cardName.append(name);
-            cardName.append(".png");
-            if(!cardIconsMap.containsKey(cardName)){
-                tag = "_a";
-            }
-            try {
-                cardIcon = read(new File(cardName.toString()));
-                cardIconsMap.put(name+tag, cardIcon);
-
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-
-            cardName.setLength(0);
+            assignCardIcon(name);
         }
 
     }
