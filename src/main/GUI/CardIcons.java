@@ -20,60 +20,18 @@ public class CardIcons {
 
     private CardsBuilder cardsBuilder;
     private BufferedImage cardHiddenIcon;
-    private List<Card> cardSet;
     private BufferedImage cardIcon;
+
+    private List<Card> cardSet;
 
     public CardIcons(CardsBuilder cardsBuilder) {
         cardIconsMap = new HashMap<>();
-
-        this.cardsBuilder = cardsBuilder;
+        cardsBuilder = cardsBuilder;
         cardSet = cardsBuilder.getCards().getCards();
-        assignCardIcons();
-        assignHiddenCardIcon();
-    }
-
-    public List<Card> getCardSet() {
-        return cardSet;
-    }
-
-    private void lookupCardIcon(int index){
-         String name = cardSet.get(index).getName();
-         assignCardIcon(name);
-
-    }
-
-    public BufferedImage getCardIcon(int index){
-        lookupCardIcon(index);
-        return cardIcon;
-    }
-
-    protected void assignCardIcons() {
-
-        for (int i = 0; i < cardSet.size(); i++) {
-            String name = cardsBuilder.getNames()[i];
-            assignCardIcon(name);
-        }
-
-    }
-    protected HashMap<String, BufferedImage> getCardIconsMap(){
-        return cardIconsMap;
     }
 
 
-    protected void assignHiddenCardIcon(){
-        try {
-            cardHiddenIcon = read(new File("src/images/hidden_image.png"));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    protected BufferedImage getHiddenCardIcon(){
-        return cardHiddenIcon;
-    }
-
-
-    protected void assignCardIcon(String name){
+    protected void assignCardIcon(String name) {
         StringBuilder cardName = new StringBuilder();
         cardName.append("src/images/");
         cardName.append(name);
@@ -85,12 +43,49 @@ public class CardIcons {
         }
     }
 
+    private void lookupCardIcon(int index) {
+        String name = cardSet.get(index).getName();
+        assignCardIcon(name);
 
+    }
+
+    protected BufferedImage getCardIcon(int index) {
+        State hidden = State.valueOf("hidden");
+        State guess = State.valueOf("guessed");
+        BufferedImage currentIcon = null;
+        if (getCardState(index).equals(hidden)) {
+            currentIcon = getHiddenCardIcon();
+        }
+        else if (getCardState(index).equals(guess)) {
+            lookupCardIcon(index);
+            currentIcon = cardIcon;
+        }
+        return currentIcon;
+    }
+
+    protected void assignHiddenCardIcon() {
+        try {
+            cardHiddenIcon = read(new File("src/images/hidden_image.png"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    protected BufferedImage getHiddenCardIcon() {
+        assignHiddenCardIcon();
+        return cardHiddenIcon;
+    }
+
+
+    private State getCardState(int index) {
+        return cardSet.get(index).getState();
+
+    }
 
     @Override
-    public String toString(){
+    public String toString() {
         StringBuilder sb = new StringBuilder();
-        for(int i = 0; i< cardSet.size(); i++){
+        for (int i = 0; i < cardSet.size(); i++) {
             sb.append("- ");
             sb.append(cardSet.get(i).getName());
             sb.append("\n");

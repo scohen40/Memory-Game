@@ -58,21 +58,14 @@ public class GameView extends JComponent {
         for (int i = 0; i < rows; i++) {
             for (int j = 0; j < cols; j++) {
                 point.setLocation(getX() + (cardWidth * j), getY() + (cardHeight * i));
-
                 g.drawImage(icons.getCardIcon(counter), point.x, point.y, null);
                 counter++;
-                   // g.drawImage(icons.getHiddenCardIcon(), point.x, point.y, null);
 
             }
 
         }
     }
 
-    public void drawCardIcon(int index){
-        for (int i = 0; i < icons.getCardSet().size(); i++){
-
-        }
-    }
 
 
 
