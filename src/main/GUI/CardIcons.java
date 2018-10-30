@@ -21,20 +21,34 @@ public class CardIcons {
     private CardsBuilder cardsBuilder;
     private BufferedImage cardHiddenIcon;
     private List<Card> cardSet;
+    private BufferedImage cardIcon;
 
     public CardIcons(CardsBuilder cardsBuilder) {
         cardIconsMap = new HashMap<>();
 
         this.cardsBuilder = cardsBuilder;
         cardSet = cardsBuilder.getCards().getCards();
-        setHiddenCardIcon();
+        assignCardIcon();
     }
 
+    private void assignCardIcon(){
+        cardSet.get(4).setViewing(true);
+       for(int i = 0; i < cardSet.size(); i++){
+           if(cardSet.get(i).isViewing()){
+               String name = cardSet.get(i).getName();
+               assignCardIcon(name);
+           }
+       }
+    }
 
+    public BufferedImage getCardIcon(){
+        return cardIcon;
+    }
 
     protected void assignCardIcons() {
         BufferedImage cardIcon = null;
         StringBuilder cardName = new StringBuilder();
+        String tag = "_b";
         for (int i = 0; i < cardSet.size(); i++) {
 
             String name = cardsBuilder.getNames()[i];
@@ -42,9 +56,12 @@ public class CardIcons {
             cardName.append("src/images/");
             cardName.append(name);
             cardName.append(".png");
+            if(!cardIconsMap.containsKey(cardName)){
+                tag = "_a";
+            }
             try {
                 cardIcon = read(new File(cardName.toString()));
-                cardIconsMap.put(name, cardIcon);
+                cardIconsMap.put(name+tag, cardIcon);
 
             } catch (IOException e) {
                 e.printStackTrace();
@@ -52,14 +69,14 @@ public class CardIcons {
 
             cardName.setLength(0);
         }
+
     }
     protected HashMap<String, BufferedImage> getCardIconsMap(){
         return cardIconsMap;
     }
 
 
-
-    protected void setHiddenCardIcon(){
+    protected void assignHiddenCardIcon(){
         try {
             cardHiddenIcon = read(new File("src/images/hidden_image.png"));
         } catch (IOException e) {
@@ -71,20 +88,21 @@ public class CardIcons {
         return cardHiddenIcon;
     }
 
-    protected State getCurrentCardStatus(String cardName){
-        int index = getCardIndex(cardName);
-        return cardsBuilder.getCards().getCards().get(index).getState();
+
+    protected void assignCardIcon(String name){
+        StringBuilder cardName = new StringBuilder();
+        cardName.append("src/images/");
+        cardName.append(name);
+        cardName.append(".png");
+        try {
+            cardIcon = read(new File(cardName.toString()));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
-    private int getCardIndex(String cardName){
-        int cardIndex = 0;
-        for(int i = 0; i < cardsBuilder.getNames().length; i++){
-            if(cardsBuilder.getNames()[i].equals(cardName)){
-                cardIndex = i;
-            }
-        }
-        return cardIndex;
-    }
+
+
     @Override
     public String toString(){
         StringBuilder sb = new StringBuilder();
