@@ -16,7 +16,6 @@ import static javax.imageio.ImageIO.read;
 
 public class CardIcons {
 
-    protected HashMap<String, BufferedImage> cardIconsMap;
 
     private CardsBuilder cardsBuilder;
     private BufferedImage cardHiddenIcon;
@@ -25,7 +24,6 @@ public class CardIcons {
     private List<Card> cardSet;
 
     public CardIcons(CardsBuilder cardsBuilder) {
-        cardIconsMap = new HashMap<>();
         cardsBuilder = cardsBuilder;
         cardSet = cardsBuilder.getCards().getCards();
     }

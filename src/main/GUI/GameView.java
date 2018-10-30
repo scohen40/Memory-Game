@@ -4,9 +4,6 @@ import main.*;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.geom.Ellipse2D;
-import java.util.ArrayList;
-import java.util.List;
 
 public class GameView extends JComponent {
 
@@ -15,11 +12,8 @@ public class GameView extends JComponent {
     private int cardWidth;
     private int cardHeight;
 
-
     protected GridBuilder gridBuilder;
-
     private CardsBuilder cardsBuilder;
-
     private CardIcons icons;
 
     public GameView(int rows, int cols) {
@@ -60,7 +54,6 @@ public class GameView extends JComponent {
                 point.setLocation(getX() + (cardWidth * j), getY() + (cardHeight * i));
                 g.drawImage(icons.getCardIcon(counter), point.x, point.y, null);
                 counter++;
-
             }
 
         }

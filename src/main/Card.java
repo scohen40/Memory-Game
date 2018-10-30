@@ -3,14 +3,10 @@ package main;
 public class Card {
     private int id;
     private String name;
-    private boolean hidden;
-    private boolean viewing;
-    private boolean matched;
     private State state;
 
     public Card() {
         state = State.hidden;
-        this.hidden = true;
 
     }
 
@@ -37,30 +33,6 @@ public class Card {
 
     public void setState(State state) {
         this.state = state;
-    }
-
-    public void setHidden(boolean state){
-        this.hidden = state;
-    }
-
-    public void setViewing(boolean state){
-        this.viewing = state;
-    }
-
-    public void setMatched(boolean state){
-        this.matched = state;
-    }
-
-    public boolean isHidden() {
-        return hidden;
-    }
-
-    public boolean isViewing() {
-        return viewing;
-    }
-
-    public boolean isMatched() {
-        return matched;
     }
 
 
