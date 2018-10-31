@@ -65,7 +65,6 @@ public class GameView extends JComponent implements MouseListener {
     private void paintCards(Graphics graphics) {
         cardWidth = getWidth() / rows;
         cardHeight = getHeight() / cols;
-        State viewing = State.valueOf("guessed") ;
 
         Point point = new Point(0, 0);
         Graphics2D g = (Graphics2D) graphics;
@@ -115,7 +114,8 @@ public class GameView extends JComponent implements MouseListener {
 
             if(rectangle.contains(point)){
                 play.flipFirstCard(i);
-                icons.setCardState(i);
+
+                icons.setViewingState(i);
                 repaint();
 
 

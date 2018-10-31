@@ -50,7 +50,6 @@ public class CardIcons {
         State hidden = State.valueOf("hidden");
         State matched = State.valueOf("matched") ;
         State guess = State.valueOf("guessed");
-        getCardSet().get(6).setState(matched);
 
         BufferedImage currentIcon = null;
         if (getCardState(index).equals(hidden)) {
@@ -82,8 +81,8 @@ public class CardIcons {
 
     }
 
-   public void setCardState(int index){
-        cardSet.get(index).setState(State.valueOf("matched"));
+   public void setViewingState(int index){
+        cardSet.get(index).setState(State.valueOf("guessed"));
     }
 
     public List<Card> getCardSet() {

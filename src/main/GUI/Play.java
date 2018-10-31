@@ -59,7 +59,6 @@ public class Play {
 
 
     private void changeState(int guessA, int guessB, State state){
-
         cardSet.get(guessA).setState(state);
         cardSet.get(guessB).setState(state);
 
