@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import static javax.imageio.ImageIO.read;
 
 public class GameGUI extends JFrame {
+    private JPanel panel = new JPanel();
 
     private JPanel gridPanel = new JPanel();
     private int rows = 4;
@@ -21,45 +22,38 @@ public class GameGUI extends JFrame {
     private GameView gameView = new GameView(rows, cols);
     private Play play = gameView.startGame();
     private int guessA, guessB;
-    private JPanel cardPanel = new JPanel();
 
+    private JButton button;
     private Icon icon;
-    
+
     public GameGUI() {
         gameView.setRows(rows);
         gameView.setCols(cols);
-        gameView.getImageIconList();
 
         setTitle("MEMORY GAME");
         setSize(1000, 850);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocation(340, 90);
-        JPanel panel = new JPanel();
+        Border border = BorderFactory.createEmptyBorder(20, 20, 20, 20);
+        panel.setBorder(border);
+        panel.setLayout(new BorderLayout());
 
+       // FlowLayout fl = new FlowLayout(FlowLayout.TRAILING, 20, 10);
+       // panel.setLayout(fl);
 
-        FlowLayout fl = new FlowLayout(FlowLayout.TRAILING, 30, 10);
-        panel.setLayout(fl);
-        JButton button;
+        panel.add(gameView, BorderLayout.CENTER);
+        add(panel);
 
-
-        for(int i = 0 ; i < gameView.imageList.size(); i++){
+        /*for(int i = 0 ; i < gameView.imageList.size(); i++){
 
             icon = gameView.getImageIcon(i);
             button = new JButton(icon);
             panel.add(button);
 
-        }
-
-        Border border = BorderFactory.createEmptyBorder(20, 20, 20, 20);
-        gridPanel.setBorder(border);
-        gridPanel.setLayout(new BorderLayout());
-     //   gridPanel.add(gameView, BorderLayout.CENTER);
-
-        add(panel);
+        }*/
 
 
 
-       //add(cardPanel);
     }
 
 

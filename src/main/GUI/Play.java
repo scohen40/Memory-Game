@@ -14,9 +14,9 @@ public class Play {
     }
 
 
-
     public void guess(int guessA, int guessB){
-
+        guessA = 3;
+        guessB = 7;
         String cardA = cardSet.get(guessA).getName();
         String cardB = cardSet.get(guessB).getName();
 
