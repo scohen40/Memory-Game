@@ -13,6 +13,7 @@ public class GameGUI extends JFrame {
     private int rows = 4;
     private int cols = 4;
     private GameView gameView = new GameView(rows, cols);
+    private Play play;
 
     public GameGUI() {
         gameView.setRows(rows);

@@ -16,10 +16,13 @@ public class GameView extends JComponent {
     private CardsBuilder cardsBuilder;
     private CardIcons icons;
 
+    private Play play;
+
     public GameView(int rows, int cols) {
         gridBuilder = new GridBuilder(rows, cols);
         cardsBuilder = gridBuilder.getCardsBuilder();
         icons = new CardIcons(cardsBuilder);
+        play = new Play(icons.getCardSet());
     }
 
     public void paintComponent(Graphics graphics) {

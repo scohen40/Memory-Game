@@ -17,19 +17,19 @@ import static javax.imageio.ImageIO.read;
 public class CardIcons {
 
 
-    private CardsBuilder cardsBuilder;
     private BufferedImage cardHiddenIcon;
     private BufferedImage cardIcon;
 
     private List<Card> cardSet;
 
+
     public CardIcons(CardsBuilder cardsBuilder) {
-        cardsBuilder = cardsBuilder;
         cardSet = cardsBuilder.getCards().getCards();
+
     }
 
 
-    protected void assignCardIcon(String name) {
+    private void assignCardIcon(String name) {
         StringBuilder cardName = new StringBuilder();
         cardName.append("src/images/");
         cardName.append(name);
@@ -44,12 +44,13 @@ public class CardIcons {
     private void lookupCardIcon(int index) {
         String name = cardSet.get(index).getName();
         assignCardIcon(name);
-
     }
 
     protected BufferedImage getCardIcon(int index) {
         State hidden = State.valueOf("hidden");
         State guess = State.valueOf("guessed");
+        cardSet.get(4).setState(guess);
+        cardSet.get(13).setState(guess);
         BufferedImage currentIcon = null;
         if (getCardState(index).equals(hidden)) {
             currentIcon = getHiddenCardIcon();
@@ -61,7 +62,7 @@ public class CardIcons {
         return currentIcon;
     }
 
-    protected void assignHiddenCardIcon() {
+    private void assignHiddenCardIcon() {
         try {
             cardHiddenIcon = read(new File("src/images/hidden_image.png"));
         } catch (IOException e) {
@@ -69,7 +70,7 @@ public class CardIcons {
         }
     }
 
-    protected BufferedImage getHiddenCardIcon() {
+    private BufferedImage getHiddenCardIcon() {
         assignHiddenCardIcon();
         return cardHiddenIcon;
     }
@@ -78,6 +79,10 @@ public class CardIcons {
     private State getCardState(int index) {
         return cardSet.get(index).getState();
 
+    }
+
+    public List<Card> getCardSet() {
+        return cardSet;
     }
 
     @Override
