@@ -6,30 +6,20 @@ import main.Game;
 import javax.swing.*;
 import javax.swing.border.Border;
 import java.awt.*;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
-import java.util.ArrayList;
-
-import static javax.imageio.ImageIO.read;
 
 public class GameGUI extends JFrame {
     private JPanel panel = new JPanel();
 
-    private JPanel gridPanel = new JPanel();
     private int rows = 4;
     private int cols = 4;
     private GameView gameView = new GameView(rows, cols);
-    private Play play = gameView.startGame();
+
     private int guessA, guessB;
 
-    private JButton button;
-    private Icon icon;
 
     public GameGUI() {
         gameView.setRows(rows);
         gameView.setCols(cols);
-
         setTitle("MEMORY GAME");
         setSize(1000, 850);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

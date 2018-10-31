@@ -1,6 +1,7 @@
 package main.GUI;
 
 import main.*;
+import org.w3c.dom.css.Rect;
 
 import javax.swing.*;
 import java.awt.*;
@@ -24,7 +25,6 @@ public class GameView extends JComponent implements MouseListener {
     private CardIcons icons;
 
     private BufferedImage bufferedImage;
-    private ImageIcon imageIcon;
 
     private ArrayList<Rectangle> rectangleArrayList;
     private Play play;
@@ -36,6 +36,8 @@ public class GameView extends JComponent implements MouseListener {
         cardsBuilder = gridBuilder.getCardsBuilder();
         icons = new CardIcons(cardsBuilder);
         rectangleArrayList = new ArrayList<>();
+        startGame();
+
     }
 
     public void paintComponent(Graphics graphics) {
@@ -63,6 +65,8 @@ public class GameView extends JComponent implements MouseListener {
     private void paintCards(Graphics graphics) {
         cardWidth = getWidth() / rows;
         cardHeight = getHeight() / cols;
+        State viewing = State.valueOf("guessed") ;
+
         Point point = new Point(0, 0);
         Graphics2D g = (Graphics2D) graphics;
         int counter = 0;
@@ -70,14 +74,13 @@ public class GameView extends JComponent implements MouseListener {
         for (int i = 0; i < rows; i++) {
             for (int j = 0; j < cols; j++) {
                 point.setLocation(getX() + (cardWidth * j), getY() + (cardHeight * i));
-                /*;
-                imageIcon = new ImageIcon(bufferedImage);
-                imageList.add(imageIcon);*/
+
                 bufferedImage = icons.getCardIcon(counter);
                 g.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
                         RenderingHints.VALUE_ANTIALIAS_ON);
                 rect = new Rectangle(point.x, point.y, bufferedImage.getWidth()-10, bufferedImage.getHeight()-10);
                 rectangleArrayList.add(rect);
+
                 g.drawImage(bufferedImage, rect.x, rect.y, null);
                 counter++;
             }
@@ -87,9 +90,9 @@ public class GameView extends JComponent implements MouseListener {
 
 
 
-    public Play startGame() {
+    public void startGame() {
         play = new Play(icons.getCardSet());
-        return play;
+
     }
 
     public void setRows(int rows) {
@@ -104,17 +107,32 @@ public class GameView extends JComponent implements MouseListener {
     @Override
     public void mouseClicked(MouseEvent e) {
         Point point = e.getPoint();
-        
+        int count = e.getClickCount();
+        int guessA, guessB;
+        Rectangle rectangle = null;
         for(int i = 0; i < rectangleArrayList.size(); i++){
-            Rectangle rectangle = rectangleArrayList.get(i);
-            if(rectangle.contains(point)) {
-                System.out.println(e.getPoint() + "clicked");
+            rectangle  = rectangleArrayList.get(i);
+
+            if(rectangle.contains(point)){
+                play.flipFirstCard(i);
+                icons.setCardState(i);
+                repaint();
+
 
             }
-
         }
 
 
+
+
+    }
+
+    public boolean checkBounds(Point point){
+        Rectangle rectangle = null;
+        for(int i = 0; i < rectangleArrayList.size(); i++){
+           rectangle  = rectangleArrayList.get(i);
+        }
+      return rectangle.contains(point);
     }
 
 

@@ -19,7 +19,7 @@ public class CardIcons {
 
     private BufferedImage cardHiddenIcon;
     private BufferedImage cardIcon;
-
+    Play play;
     private List<Card> cardSet;
 
 
@@ -48,12 +48,15 @@ public class CardIcons {
 
     protected BufferedImage getCardIcon(int index) {
         State hidden = State.valueOf("hidden");
+        State matched = State.valueOf("matched") ;
         State guess = State.valueOf("guessed");
+        getCardSet().get(6).setState(matched);
+
         BufferedImage currentIcon = null;
         if (getCardState(index).equals(hidden)) {
             currentIcon = getHiddenCardIcon();
         }
-        else if (getCardState(index).equals(guess)) {
+        else if (getCardState(index).equals(guess) || getCardState(index).equals(matched)) {
             lookupCardIcon(index);
             currentIcon = cardIcon;
         }
@@ -77,6 +80,10 @@ public class CardIcons {
     private State getCardState(int index) {
         return cardSet.get(index).getState();
 
+    }
+
+   public void setCardState(int index){
+        cardSet.get(index).setState(State.valueOf("matched"));
     }
 
     public List<Card> getCardSet() {
