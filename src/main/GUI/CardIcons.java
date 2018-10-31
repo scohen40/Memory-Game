@@ -49,8 +49,6 @@ public class CardIcons {
     protected BufferedImage getCardIcon(int index) {
         State hidden = State.valueOf("hidden");
         State guess = State.valueOf("guessed");
-        cardSet.get(4).setState(guess);
-        cardSet.get(13).setState(guess);
         BufferedImage currentIcon = null;
         if (getCardState(index).equals(hidden)) {
             currentIcon = getHiddenCardIcon();

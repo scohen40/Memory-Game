@@ -1,36 +1,59 @@
 package main.GUI;
 
 import main.Card;
+import main.State;
 
 import java.util.List;
 
 public class Play {
 
+    private List<Card> cardSet;
 
     public Play(List<Card> cardSet){
-
+        this.cardSet = cardSet;
     }
 
 
 
-    public void guess(int guessA, int guessB, List<Card> cardSet){
+    public void guess(int guessA, int guessB){
+
         String cardA = cardSet.get(guessA).getName();
         String cardB = cardSet.get(guessB).getName();
-        while(matched(cardA,cardB) && cardSet.size() > 2){
-            removeMatch(guessA, guessB, cardSet);
+
+        while(isViewing(guessA, guessB)){
+            if(isSet(cardA,cardB) && cardSet.size() > 2){
+                removeSet(guessA, guessB);
+            }
         }
+        if(!isSet(cardA, cardB)){
+            State hidden = State.valueOf("hidden") ;
+            changeState(guessA, guessB, hidden);
+        }
+
     }
 
 
-    private boolean matched(String cardA, String cardB){
+    private boolean isViewing(int guessA, int guessB){
+        State viewing = State.valueOf("guessed") ;
+        return (cardSet.get(guessA).getState().equals(viewing)
+                && cardSet.get(guessB).getState().equals(viewing));
+    }
+
+    private boolean isSet(String cardA, String cardB){
         return cardA.equals(cardB);
     }
 
-    private void removeMatch(int guessA, int guessB, List<Card> cardSet){
+    private void removeSet(int guessA, int guessB){
+        State matched = State.valueOf("matched") ;
+        changeState(guessA, guessB, matched);
         cardSet.remove(guessA);
         cardSet.remove(guessB);
+
     }
 
-
+    private void changeState(int guessA, int guessB, State state){
+        cardSet.get(guessA).setState(state);
+        cardSet.get(guessB).setState(state);
+    }
 
 }
