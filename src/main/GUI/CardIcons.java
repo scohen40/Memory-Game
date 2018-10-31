@@ -85,6 +85,9 @@ public class CardIcons {
         cardSet.get(index).setState(State.valueOf("guessed"));
     }
 
+    public void setHiddenState(int index){
+        cardSet.get(index).setState(State.valueOf("hidden"));
+    }
     public List<Card> getCardSet() {
         return cardSet;
     }

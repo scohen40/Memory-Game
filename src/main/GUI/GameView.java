@@ -106,24 +106,33 @@ public class GameView extends JComponent implements MouseListener {
     @Override
     public void mouseClicked(MouseEvent e) {
         Point point = e.getPoint();
-        int count = e.getClickCount();
-        int guessA, guessB;
-        Rectangle rectangle = null;
+        boolean clickOne = false;
+        boolean clickTwo = false;
+        int guessA = 0;
+        int guessB =0;
+        Rectangle rectangle;
         for(int i = 0; i < rectangleArrayList.size(); i++){
             rectangle  = rectangleArrayList.get(i);
 
-            if(rectangle.contains(point)){
-                play.flipFirstCard(i);
-
-                icons.setViewingState(i);
+            if(rectangle.contains(point) && clickOne == false){
+                guessA = i;
+                icons.setViewingState(guessA);
                 repaint();
+                clickOne = true;
+                }
+            if(rectangle.contains(point) && clickTwo == false){
 
+                icons.setViewingState(guessB);
+                repaint();
+                clickTwo = true;
+            }
 
             }
-        }
 
 
 
+clickOne = false;
+        clickTwo= false;
 
     }
 
