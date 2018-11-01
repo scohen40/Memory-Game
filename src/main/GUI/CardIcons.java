@@ -26,6 +26,7 @@ public class CardIcons {
         cardSet = cardsBuilder.getCards().getCards();
        play = new Play(cardSet);
 
+        System.out.println(toString());
 
     }
 

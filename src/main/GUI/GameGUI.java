@@ -13,13 +13,13 @@ public class GameGUI extends JFrame {
     private int rows = 4;
     private int cols = 4;
     private GameView gameView = new GameView(rows, cols);
-
     private int guessA, guessB;
 
 
     public GameGUI() {
         gameView.setRows(rows);
         gameView.setCols(cols);
+        gameView.startGame();
         setTitle("MEMORY GAME");
         setSize(1000, 850);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

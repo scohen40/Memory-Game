@@ -16,7 +16,6 @@ public class GameView extends JComponent implements MouseListener {
     private int cardWidth;
     private int cardHeight;
 
-    private int guess;
 
     protected GridBuilder gridBuilder;
     private CardsBuilder cardsBuilder;
@@ -35,8 +34,6 @@ public class GameView extends JComponent implements MouseListener {
         cardsBuilder = gridBuilder.getCardsBuilder();
         icons = new CardIcons(cardsBuilder);
         rectangleArrayList = new ArrayList<>();
-        startGame();
-
     }
 
     public void paintComponent(Graphics graphics) {
@@ -104,21 +101,22 @@ public class GameView extends JComponent implements MouseListener {
     @Override
     public void mouseClicked(MouseEvent e) {
     int positionA;
+    int positionB = -1;
     pointersList.add(e.getPoint());
 
         positionA = isInBounds(pointersList.get(0));
-        if(positionA != -1){
+        if(positionA != -1 && !play.isMatch(positionA)){
             play.setA(positionA);
             repaint();
         }
         if(pointersList.size() == 2){
-            int positionB = isInBounds(pointersList.get(1));
-            if(positionB != -1){
+            positionB = isInBounds(pointersList.get(1));
+            if(positionB != -1 && !play.isMatch(positionA)){
                 play.setB(positionB);
                 repaint();
-            }
-            pointersList.clear();
+                pointersList.clear();
 
+            }
         }
 
     }
