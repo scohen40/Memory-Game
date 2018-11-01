@@ -18,7 +18,7 @@ public class CardsBuilder {
     }
 
     /**
-     * The method setNamesFromEnum() takes fills the Array names with all of the names in the enum Name.
+     * The method setNamesFromEnum() fills the Array names with all of the names in the enum Name.
      * @return String
      */
     public String[] setNamesFromEnum() {
@@ -51,6 +51,10 @@ public class CardsBuilder {
         return cards;
     }
 
+    public String[] getNames(){
+        return names;
+    }
+
     public void setCards(Cards cards) {
         this.cards = cards;
     }
@@ -62,5 +66,6 @@ public class CardsBuilder {
     public void setNumberOfMatches(int numberOfMatches) {
         this.numberOfMatches = numberOfMatches;
     }
+
 
 }

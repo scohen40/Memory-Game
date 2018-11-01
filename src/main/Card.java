@@ -7,7 +7,9 @@ public class Card {
 
     public Card() {
         state = State.hidden;
+
     }
+
 
     public int getId() {
         return id;
@@ -32,5 +34,11 @@ public class Card {
     public void setState(State state) {
         this.state = state;
     }
+
+
+	@Override
+	public String toString() {
+		return "Card [id=" + id + ", name=" + name + ", state=" + state + "]";
+	}
 
 }
