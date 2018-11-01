@@ -8,9 +8,10 @@ import java.util.List;
 
 public class Play {
 
-    int a;
-    int b;
-
+    private int a;
+    private int b;
+    private String cardA;
+    private String cardB;
     private List<Card> cardSet;
 
     private State matched = State.valueOf("matched") ;
@@ -19,16 +20,11 @@ public class Play {
 
     public void setA(int a) {
         this.a = a;
-        flipACard(a);
     }
 
     public void setB(int b) {
         this.b = b;
-        flipBCard(b);
-        if (a != b){
-            guess(a,b);
-        }
-
+        guess(a,b);
 
     }
 
@@ -38,22 +34,24 @@ public class Play {
     }
 
     public void flipACard(int a) {
-        cardSet.get(a).setState(viewing);
+        changeOne(a, viewing);
     }
 
     public void flipBCard(int b) {
-        cardSet.get(b).setState(viewing);
+        changeOne(b, viewing);
+
     }
 
     public void guess(int guessA, int guessB){
 
+        changeOne(b, viewing);
+        changeOne(a, viewing);
 
-        String cardA = cardSet.get(guessA).getName();
-        String cardB = cardSet.get(guessB).getName();
+        cardA = cardSet.get(guessA).getName();
+        cardB = cardSet.get(guessB).getName();
         System.out.println("viewing..." + cardA + " & " +cardB);
 
-        while(isViewing(guessA, guessB)){
-
+       if(isViewing(guessA) && isViewing(guessB)){
             if(isSet(cardA,cardB) && cardSet.size() > 2){
                 changeState(guessA, guessB, matched);
                 System.out.println("ITS A MATCH!");
@@ -68,16 +66,19 @@ public class Play {
     }
 
 
-    private boolean isViewing(int guessA, int guessB){
+    private boolean isViewing(int guess){
 
-        return (cardSet.get(guessA).getState().equals(viewing)
-                && cardSet.get(guessB).getState().equals(viewing));
+        return (cardSet.get(guess).getState().equals(viewing));
     }
 
-    private boolean isSet(String cardA, String cardB){
+    public boolean isSet(String cardA, String cardB){
+
         return cardA.equals(cardB);
     }
 
+    public boolean isMatch(int guess){
+        return cardSet.get(guess).getState().equals(matched);
+    }
 
     private void changeState(int guessA, int guessB, State state){
         cardSet.get(guessA).setState(state);
@@ -85,7 +86,10 @@ public class Play {
 
     }
 
+    private void changeOne(int guess, State state){
+        cardSet.get(guess).setState(state);
 
+    }
 
     public State checkState(int index){
         return cardSet.get(index).getState();
