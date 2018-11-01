@@ -16,80 +16,20 @@ import static javax.imageio.ImageIO.read;
 
 public class CardIcons {
 
-    protected HashMap<String, BufferedImage> cardIconsMap;
 
-    private CardsBuilder cardsBuilder;
     private BufferedImage cardHiddenIcon;
-    private List<Card> cardSet;
     private BufferedImage cardIcon;
+    Play play;
+    private List<Card> cardSet;
+
 
     public CardIcons(CardsBuilder cardsBuilder) {
-        cardIconsMap = new HashMap<>();
-
-        this.cardsBuilder = cardsBuilder;
         cardSet = cardsBuilder.getCards().getCards();
-        assignCardIcon();
-    }
-
-    private void assignCardIcon(){
-        cardSet.get(4).setViewing(true);
-       for(int i = 0; i < cardSet.size(); i++){
-           if(cardSet.get(i).isViewing()){
-               String name = cardSet.get(i).getName();
-               assignCardIcon(name);
-           }
-       }
-    }
-
-    public BufferedImage getCardIcon(){
-        return cardIcon;
-    }
-
-    protected void assignCardIcons() {
-        BufferedImage cardIcon = null;
-        StringBuilder cardName = new StringBuilder();
-        String tag = "_b";
-        for (int i = 0; i < cardSet.size(); i++) {
-
-            String name = cardsBuilder.getNames()[i];
-
-            cardName.append("src/images/");
-            cardName.append(name);
-            cardName.append(".png");
-            if(!cardIconsMap.containsKey(cardName)){
-                tag = "_a";
-            }
-            try {
-                cardIcon = read(new File(cardName.toString()));
-                cardIconsMap.put(name+tag, cardIcon);
-
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-
-            cardName.setLength(0);
-        }
 
     }
-    protected HashMap<String, BufferedImage> getCardIconsMap(){
-        return cardIconsMap;
-    }
 
 
-    protected void assignHiddenCardIcon(){
-        try {
-            cardHiddenIcon = read(new File("src/images/hidden_image.png"));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    protected BufferedImage getHiddenCardIcon(){
-        return cardHiddenIcon;
-    }
-
-
-    protected void assignCardIcon(String name){
+    private void assignCardIcon(String name) {
         StringBuilder cardName = new StringBuilder();
         cardName.append("src/images/");
         cardName.append(name);
@@ -101,12 +41,61 @@ public class CardIcons {
         }
     }
 
+    private void lookupCardIcon(int index) {
+        String name = cardSet.get(index).getName();
+        assignCardIcon(name);
+    }
 
+    protected BufferedImage getCardIcon(int index) {
+        State hidden = State.valueOf("hidden");
+        State matched = State.valueOf("matched") ;
+        State guess = State.valueOf("guessed");
+
+        BufferedImage currentIcon = null;
+        if (getCardState(index).equals(hidden)) {
+            currentIcon = getHiddenCardIcon();
+        }
+        else if (getCardState(index).equals(guess) || getCardState(index).equals(matched)) {
+            lookupCardIcon(index);
+            currentIcon = cardIcon;
+        }
+        return currentIcon;
+    }
+
+    private void assignHiddenCardIcon() {
+        try {
+            cardHiddenIcon = read(new File("src/images/hidden_image.png"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private BufferedImage getHiddenCardIcon() {
+        assignHiddenCardIcon();
+        return cardHiddenIcon;
+    }
+
+
+    private State getCardState(int index) {
+        return cardSet.get(index).getState();
+
+    }
+
+   public void setViewingState(int index){
+        cardSet.get(index).setState(State.valueOf("guessed"));
+    }
+
+    public void setHiddenState(int index){
+        cardSet.get(index).setState(State.valueOf("hidden"));
+    }
+    public List<Card> getCardSet() {
+        return cardSet;
+    }
 
     @Override
-    public String toString(){
+    public String toString() {
         StringBuilder sb = new StringBuilder();
-        for(int i = 0; i< cardSet.size(); i++){
+        for (int i = 0; i < cardSet.size(); i++) {
             sb.append("- ");
             sb.append(cardSet.get(i).getName());
             sb.append("\n");
