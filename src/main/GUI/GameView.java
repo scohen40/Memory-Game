@@ -19,9 +19,10 @@ public class GameView extends JComponent implements MouseListener {
     protected GridBuilder gridBuilder;
     private CardsBuilder cardsBuilder;
     private CardIcons icons;
+    boolean result = false;
 
     private BufferedImage bufferedImage;
-    private ArrayList<Point> pointersList = new ArrayList<>();
+    private ArrayList<Integer> pointersList = new ArrayList<>();
 
     private ArrayList<Rectangle> rectangleArrayList;
     private Play play;
@@ -87,26 +88,42 @@ public class GameView extends JComponent implements MouseListener {
     public void mouseClicked(MouseEvent e) {
         int positionA;
         int positionB;
-        pointersList.add(e.getPoint());
-
+        
+        Point P = e.getPoint();
+        
+        int index = isInBounds(P);
+        
+        if(index == -1 || pointersList.contains(index)) {
+        	return;
+        }
+       
+        pointersList.add(index);
         //if there's only one pointer in the list, get the location of the first card and put it in positionA
         if(pointersList.size() == 1) {
-            positionA = isInBounds(pointersList.get(0));
+            positionA = pointersList.get(0);
             if (positionA != -1) {
+            	if(result) {
+            		play.hideEverything();
+            	}
                 play.flipCard(positionA);
                 repaint();
             }
         }
         //if there's two pointers in the list, get the location of both cards
         if (pointersList.size() == 2) {
-            positionA = isInBounds(pointersList.get(0));
-            positionB = isInBounds(pointersList.get(1));
+            positionA = pointersList.get(0);
+            positionB = pointersList.get(1);
             if (positionB != -1) {
                 play.flipCard(positionB);
-                play.guess(positionA, positionB);
+                result = play.guess(positionA, positionB);
                 repaint();
-                pointersList.clear();
-
+                if(result) {
+                	pointersList.clear(); // this statement is wrong
+                }else {
+                	Integer integer = pointersList.get(1);
+                	pointersList.clear();
+                	pointersList.add(integer);
+                }
             }
         }
 
