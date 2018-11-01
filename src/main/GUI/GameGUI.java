@@ -28,8 +28,6 @@ public class GameGUI extends JFrame {
         panel.setBorder(border);
         panel.setLayout(new BorderLayout());
 
-       // FlowLayout fl = new FlowLayout(FlowLayout.TRAILING, 20, 10);
-       // panel.setLayout(fl);
 
         panel.add(gameView, BorderLayout.CENTER);
         add(panel);

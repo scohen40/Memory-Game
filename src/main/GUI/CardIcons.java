@@ -19,12 +19,13 @@ public class CardIcons {
 
     private BufferedImage cardHiddenIcon;
     private BufferedImage cardIcon;
-    Play play;
     private List<Card> cardSet;
-
+    Play play;
 
     public CardIcons(CardsBuilder cardsBuilder) {
         cardSet = cardsBuilder.getCards().getCards();
+       play = new Play(cardSet);
+
 
     }
 
@@ -81,13 +82,7 @@ public class CardIcons {
 
     }
 
-   public void setViewingState(int index){
-        cardSet.get(index).setState(State.valueOf("guessed"));
-    }
 
-    public void setHiddenState(int index){
-        cardSet.get(index).setState(State.valueOf("hidden"));
-    }
     public List<Card> getCardSet() {
         return cardSet;
     }

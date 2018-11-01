@@ -3,10 +3,13 @@ package main.GUI;
 import main.Card;
 import main.State;
 
+import java.awt.*;
 import java.util.List;
 
 public class Play {
 
+    int a;
+    int b;
 
     private List<Card> cardSet;
 
@@ -14,32 +17,50 @@ public class Play {
     private State viewing = State.valueOf("guessed") ;
     private State hidden = State.valueOf("hidden") ;
 
+    public void setA(int a) {
+        this.a = a;
+        flipACard(a);
+    }
+
+    public void setB(int b) {
+        this.b = b;
+        flipBCard(b);
+        if (a != b){
+            guess(a,b);
+        }
+
+
+    }
 
     public Play(List<Card> cardSet){
         this.cardSet = cardSet;
+
     }
 
-    public int flipFirstCard(int a) {
+    public void flipACard(int a) {
         cardSet.get(a).setState(viewing);
-        return a;
     }
 
-
+    public void flipBCard(int b) {
+        cardSet.get(b).setState(viewing);
+    }
 
     public void guess(int guessA, int guessB){
-         int a = flipFirstCard(guessA);
-         int b = guessB;
 
-        String cardA = cardSet.get(a).getName();
-        String cardB = cardSet.get(b).getName();
 
-        if(isViewing(guessA, guessB)){
+        String cardA = cardSet.get(guessA).getName();
+        String cardB = cardSet.get(guessB).getName();
+        System.out.println("viewing..." + cardA + " & " +cardB);
+
+        while(isViewing(guessA, guessB)){
 
             if(isSet(cardA,cardB) && cardSet.size() > 2){
                 changeState(guessA, guessB, matched);
+                System.out.println("ITS A MATCH!");
             }
             else if(!isSet(cardA, cardB)){
                 changeState(guessA, guessB, hidden);
+                System.out.println("SORRY..");
             }
         }
 
@@ -65,11 +86,6 @@ public class Play {
     }
 
 
-    private void removeSet(int guessA, int guessB){
-        cardSet.remove(guessA);
-        cardSet.remove(guessB);
-
-    }
 
     public State checkState(int index){
         return cardSet.get(index).getState();
