@@ -89,6 +89,7 @@ public class GameView extends JComponent implements MouseListener {
         int positionA;
         int positionB;
         
+        
         Point P = e.getPoint();
         
         int index = isInBounds(P);
@@ -96,15 +97,18 @@ public class GameView extends JComponent implements MouseListener {
         if(index == -1 || pointersList.contains(index)) {
         	return;
         }
+        
+        if(result) {
+    		play.hideEverything();
+    		System.out.println("hid everything");
+    		result = false;
+    	}
        
         pointersList.add(index);
         //if there's only one pointer in the list, get the location of the first card and put it in positionA
         if(pointersList.size() == 1) {
             positionA = pointersList.get(0);
             if (positionA != -1) {
-            	if(result) {
-            		play.hideEverything();
-            	}
                 play.flipCard(positionA);
                 repaint();
             }
@@ -117,13 +121,9 @@ public class GameView extends JComponent implements MouseListener {
                 play.flipCard(positionB);
                 result = play.guess(positionA, positionB);
                 repaint();
-                if(result) {
-                	pointersList.clear(); // this statement is wrong
-                }else {
-                	Integer integer = pointersList.get(1);
-                	pointersList.clear();
-                	pointersList.add(integer);
-                }
+                Integer integer = pointersList.get(1);
+            	pointersList.clear();
+            	pointersList.add(integer);
             }
         }
 
@@ -148,7 +148,6 @@ public class GameView extends JComponent implements MouseListener {
 
     @Override
     public void mouseReleased(MouseEvent e) {
-
     }
 
     @Override
