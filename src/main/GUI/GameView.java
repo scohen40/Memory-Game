@@ -16,7 +16,6 @@ public class GameView extends JComponent implements MouseListener {
     private int cardWidth;
     private int cardHeight;
 
-
     protected GridBuilder gridBuilder;
     private CardsBuilder cardsBuilder;
     private CardIcons icons;
@@ -33,6 +32,7 @@ public class GameView extends JComponent implements MouseListener {
         gridBuilder = new GridBuilder(rows, cols);
         cardsBuilder = gridBuilder.getCardsBuilder();
         icons = new CardIcons(cardsBuilder);
+        play = new Play(icons.getCardSet());
         rectangleArrayList = new ArrayList<>();
     }
 
@@ -83,36 +83,27 @@ public class GameView extends JComponent implements MouseListener {
         }
     }
 
-
-    public void startGame() {
-        play = new Play(icons.getCardSet());
-
-    }
-
-    public void setRows(int rows) {
-        this.rows = rows;
-    }
-
-    public void setCols(int cols) {
-        this.cols = cols;
-    }
-
-
     @Override
     public void mouseClicked(MouseEvent e) {
-    int positionA;
-    int positionB = -1;
-    pointersList.add(e.getPoint());
+        int positionA;
+        int positionB;
+        pointersList.add(e.getPoint());
 
-        positionA = isInBounds(pointersList.get(0));
-        if(positionA != -1 && !play.isMatch(positionA)){
-            play.setA(positionA);
-            repaint();
+        //if there's only one pointer in the list, get the location of the first card and put it in positionA
+        if(pointersList.size() == 1) {
+            positionA = isInBounds(pointersList.get(0));
+            if (positionA != -1) {
+                play.flipCard(positionA);
+                repaint();
+            }
         }
-        if(pointersList.size() == 2){
+        //if there's two pointers in the list, get the location of both cards
+        if (pointersList.size() == 2) {
+            positionA = isInBounds(pointersList.get(0));
             positionB = isInBounds(pointersList.get(1));
-            if(positionB != -1 && !play.isMatch(positionA)){
-                play.setB(positionB);
+            if (positionB != -1) {
+                play.flipCard(positionB);
+                play.guess(positionA, positionB);
                 repaint();
                 pointersList.clear();
 
@@ -121,7 +112,7 @@ public class GameView extends JComponent implements MouseListener {
 
     }
 
-    public int isInBounds(Point point){
+    public int isInBounds(Point point) {
         Rectangle rectangle;
         for (int i = 0; i < rectangleArrayList.size(); i++) {
             rectangle = rectangleArrayList.get(i);
@@ -152,5 +143,14 @@ public class GameView extends JComponent implements MouseListener {
     public void mouseExited(MouseEvent e) {
 
     }
+
+    public void setRows(int rows) {
+        this.rows = rows;
+    }
+
+    public void setCols(int cols) {
+        this.cols = cols;
+    }
+
 
 }

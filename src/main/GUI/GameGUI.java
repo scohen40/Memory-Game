@@ -13,13 +13,10 @@ public class GameGUI extends JFrame {
     private int rows = 4;
     private int cols = 4;
     private GameView gameView = new GameView(rows, cols);
-    private int guessA, guessB;
-
 
     public GameGUI() {
         gameView.setRows(rows);
         gameView.setCols(cols);
-        gameView.startGame();
         setTitle("MEMORY GAME");
         setSize(1000, 850);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -28,18 +25,8 @@ public class GameGUI extends JFrame {
         panel.setBorder(border);
         panel.setLayout(new BorderLayout());
 
-
         panel.add(gameView, BorderLayout.CENTER);
         add(panel);
-
-        /*for(int i = 0 ; i < gameView.imageList.size(); i++){
-
-            icon = gameView.getImageIcon(i);
-            button = new JButton(icon);
-            panel.add(button);
-
-        }*/
-
 
 
     }
