@@ -5,10 +5,7 @@ import org.w3c.dom.css.Rect;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-import java.awt.event.MouseMotionAdapter;
-import java.awt.event.MouseMotionListener;
+import java.awt.event.*;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
@@ -19,12 +16,14 @@ public class GameView extends JComponent implements MouseListener {
     private int cardWidth;
     private int cardHeight;
 
+    private int guess;
 
     protected GridBuilder gridBuilder;
     private CardsBuilder cardsBuilder;
     private CardIcons icons;
 
     private BufferedImage bufferedImage;
+    private ArrayList<Point> pointersList = new ArrayList<>();
 
     private ArrayList<Rectangle> rectangleArrayList;
     private Play play;
@@ -77,7 +76,7 @@ public class GameView extends JComponent implements MouseListener {
                 bufferedImage = icons.getCardIcon(counter);
                 g.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
                         RenderingHints.VALUE_ANTIALIAS_ON);
-                rect = new Rectangle(point.x, point.y, bufferedImage.getWidth()-10, bufferedImage.getHeight()-10);
+                rect = new Rectangle(point.x, point.y, bufferedImage.getWidth() - 10, bufferedImage.getHeight() - 10);
                 rectangleArrayList.add(rect);
 
                 g.drawImage(bufferedImage, rect.x, rect.y, null);
@@ -86,7 +85,6 @@ public class GameView extends JComponent implements MouseListener {
 
         }
     }
-
 
 
     public void startGame() {
@@ -105,45 +103,37 @@ public class GameView extends JComponent implements MouseListener {
 
     @Override
     public void mouseClicked(MouseEvent e) {
-        Point point = e.getPoint();
-        boolean clickOne = false;
-        boolean clickTwo = false;
-        int guessA = 0;
-        int guessB =0;
-        Rectangle rectangle;
-        for(int i = 0; i < rectangleArrayList.size(); i++){
-            rectangle  = rectangleArrayList.get(i);
+    int positionA;
+    pointersList.add(e.getPoint());
 
-            if(rectangle.contains(point) && clickOne == false){
-                guessA = i;
-                icons.setViewingState(guessA);
-                repaint();
-                clickOne = true;
-                }
-            if(rectangle.contains(point) && clickTwo == false){
-
-                icons.setViewingState(guessB);
-                repaint();
-                clickTwo = true;
-            }
-
-            }
-
-
-
-clickOne = false;
-        clickTwo= false;
-
-    }
-
-    public boolean checkBounds(Point point){
-        Rectangle rectangle = null;
-        for(int i = 0; i < rectangleArrayList.size(); i++){
-           rectangle  = rectangleArrayList.get(i);
+        positionA = isInBounds(pointersList.get(0));
+        if(positionA != -1){
+            play.setA(positionA);
+            repaint();
         }
-      return rectangle.contains(point);
+        if(pointersList.size() == 2){
+            int positionB = isInBounds(pointersList.get(1));
+            if(positionB != -1){
+                play.setB(positionB);
+                repaint();
+            }
+            pointersList.clear();
+
+        }
+
     }
 
+    public int isInBounds(Point point){
+        Rectangle rectangle;
+        for (int i = 0; i < rectangleArrayList.size(); i++) {
+            rectangle = rectangleArrayList.get(i);
+            if (rectangle.contains(point)) {
+                return i;
+            }
+
+        }
+        return -1;
+    }
 
     @Override
     public void mousePressed(MouseEvent e) {
