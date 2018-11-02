@@ -56,7 +56,6 @@ public class GameView extends JComponent implements MouseListener {
         g.drawRect(0, 0, getWidth(), getHeight());
         g.setColor(backgroundColor);
         g.fillRect(0, 0, (rows * cardWidth), (cols * cardHeight));
-
     }
 
     private void paintCards(Graphics graphics) {
