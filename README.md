@@ -4,7 +4,7 @@ A simple memory picture card game.
 **REQUIREMENTS**
 ***
 1. Be main.GUI Based (Swing, JPanel) 
-2. Have some sort of user interaction (perhaps with clicking).
+2. Have some sort of user interaction (clicking to flip cards).
 
 
 **TO DO**
