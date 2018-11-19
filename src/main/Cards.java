@@ -1,7 +1,6 @@
 package main;
 
 import java.util.*;
-import java.util.stream.Collectors;
 
 public class Cards {
     private List<Card> cards;
@@ -24,4 +23,3 @@ public class Cards {
 
 }
 
-//dynamically add the cards list to a rectangular(if possible) 2d array

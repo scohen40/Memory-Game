@@ -1,6 +1,8 @@
-package main;
+package board;
+
 
 import javax.swing.*;
+import java.awt.image.BufferedImage;
 
 public class Card extends JButton {
 
@@ -8,7 +10,8 @@ public class Card extends JButton {
     private boolean hidden;
     private boolean viewing;
     private boolean matched;
-    private ImageIcon cardIcon;
+    private ImageIcon icon;
+
 
     public Card() {
         this.hidden = true;
@@ -21,18 +24,6 @@ public class Card extends JButton {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-
-    @Override
-    public boolean equals(Object object){
-        Card card = (Card) object;
-        return this.name.equals(card.name);
-    }
-
-    public boolean isMatch(Object object){
-        Card card = (Card) object;
-        return (this.isViewing() && card.isViewing()) && this.name.equals(card.name);
     }
 
     public boolean isHidden() {
@@ -55,17 +46,18 @@ public class Card extends JButton {
         this.viewing = viewing;
     }
 
-    public ImageIcon getCardIcon() {
-        return cardIcon;
-    }
-
-    public void setCardIcon(ImageIcon cardIcon) {
-        this.cardIcon = cardIcon;
-    }
-
     public void setMatched(boolean matched) {
         this.matched = matched;
     }
 
+    public void setCardIcon(ImageIcon cardIcon) {
+        this.icon = icon;
+    }
+
+    public ImageIcon getCardIcon() {
+        return icon;
+    }
+
 
 }
+

@@ -1,21 +1,18 @@
 package main.GUI;
 
 import main.Card;
-import main.State;
 
-import java.awt.*;
 import java.util.List;
 
 public class Play {
     private List<Card> cardSet;
 
-    private State matched = State.valueOf("matched");
-    private State viewing = State.valueOf("guessed");
-    private State hidden = State.valueOf("hidden");
+
 
     public Play(List<Card> cardSet) {
         this.cardSet = cardSet;
     }
+/*
 
     public void flipCard(int position) {
         changeState(position, viewing);
@@ -29,12 +26,14 @@ public class Play {
 
         // if both cards are equal show it to the user and then on next click hide both.
         if (isSet(cardAName, cardBName)) {
-            changeStates(guessA, guessB, matched);
+            changeState(guessA, matched);
+            changeState(guessB, matched);
             System.out.println("ITS A MATCH!");
             return true;
             // if the cards do not match then need to hide the first card and show the second only
         } else if(!isSet(cardAName, cardBName)){
-            changeState(guessA,  hidden);
+            changeState(guessA, hidden);
+            changeState(guessB, hidden);
             System.out.println("SORRY..");
             return false;
         }
@@ -49,27 +48,22 @@ public class Play {
         cardSet.get(guess).setState(state);
 
     }
-    
-    public void hideEverything() {
-    	for(Card ca : cardSet) {
-    		ca.setState(hidden);
-    	}
+
+    public String getState(int index){
+        State state = cardSet.get(index).getState();
+        return String.valueOf(state);
     }
 
-    private void changeStates(int guessA, int guessB, State state) {
-        cardSet.get(guessA).setState(state);
-        cardSet.get(guessB).setState(state);
 
+    public String viewCard(int guess){
+        String cardName = cardSet.get(guess).getName();
+        return cardName;
     }
-
     public List<Card> getCardSet() {
         return cardSet;
     }
+*/
 
 
 
-    //
-//    public boolean isMatch(int guess) {
-//        return cardSet.get(guess).getState().equals(matched);
-//    }
 }
