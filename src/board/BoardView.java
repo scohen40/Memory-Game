@@ -4,14 +4,20 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
+import java.util.ArrayList;
 
 
 public class BoardView extends JComponent implements ActionListener {
 
     private int rows;
     private int cols;
-    private static final Color backgroundColor = new Color(205, 212, 205);
+    private static final Color backgroundColor = new Color(200, 226, 206);
+    private ArrayList<Card> CardsSelected = new ArrayList();
+    private static int selectedCards = 0;
+    private Card cardA;
+    private Card cardB;
+
+
 
     private Board board;
     private CardView cardView;
@@ -26,16 +32,14 @@ public class BoardView extends JComponent implements ActionListener {
         cardView = new CardView(board);
 
         setLayout(new GridLayout(rows, cols, 10, 10));
-        setBackground(backgroundColor);
         for (int x = 0; x < rows; x++) {
             for (int y = 0; y < cols; y++) {
-
                 add(board.getBoard()[x][y]);
                 board.getBoard()[x][y].addActionListener(this);
             }
         }
         displayBoard();
-    
+
     }
 
         public void paintComponent(Graphics graphics) {
@@ -79,21 +83,68 @@ public class BoardView extends JComponent implements ActionListener {
     }
 
     private void flipCard(int x, int y) {
-
         board.getBoard()[x][y].setViewing(true);
+        displayBoard();
+    }
+
+    private void hideCard(int x, int y) {
+        board.getBoard()[x][y].setHidden(true);
+        board.getBoard()[x][y].setViewing(false);
+
     }
 
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        Point location = getCardLocation((Card) e.getSource());
-        assert location != null;
+        Point pointA = getCardLocation((Card)e.getSource());
+        Point pointB;
+       if(cardA == null){
+           cardA = getClickedCard(pointA);
+           pointA = getCardLocation(cardA);
+           flipCard(pointA.x, pointA.y );
 
-        flipCard(location.x, location.y);
-        cardView.assignCards(location.x, location.y);
+       }
+       if(cardA != null){
+           pointB = getCardLocation((Card)e.getSource());
+           cardB = getClickedCard(pointB);
+
+           pointB = getCardLocation(cardB);
+            if(!cardA.equals(cardB)){
+                flipCard(pointB.x, pointB.y );
+                System.out.println(cardA.getName());
+                System.out.println(cardB.getName());
+                delay();
+                pointA = getCardLocation(cardA);
+                hideCard(pointA.x, pointA.y);
+                hideCard(pointB.x, pointB.y );
+                cardA = null;
+                cardB = null;
+            }
+
+
+       }
+
+
+
+
 
     }
 
 
+    private void delay() {
+
+        Action displayBoardAction = new AbstractAction() {
+            public void actionPerformed(ActionEvent e) {
+                displayBoard();
+            }
+        };
+
+        Timer timer = new Timer(2500, displayBoardAction);
+        timer.setRepeats(false);
+        timer.start();
+    }
 }
+
+
+
 

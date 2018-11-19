@@ -2,6 +2,7 @@ package board;
 
 
 import javax.swing.*;
+import java.awt.*;
 
 public class Card extends JButton {
 
@@ -13,6 +14,8 @@ public class Card extends JButton {
 
 
     public Card() {
+        setOpaque(false);
+        setBorderPainted(false);
         this.hidden = true;
     }
 
