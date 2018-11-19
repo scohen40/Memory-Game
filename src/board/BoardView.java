@@ -4,7 +4,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
 
 
 public class BoardView extends JComponent implements ActionListener {
@@ -12,8 +11,7 @@ public class BoardView extends JComponent implements ActionListener {
     private int rows;
     private int cols;
     private static final Color backgroundColor = new Color(200, 226, 206);
-    private ArrayList<Card> CardsSelected = new ArrayList();
-    private static int selectedCards = 0;
+
     private Card cardA;
     private Card cardB;
 
@@ -129,15 +127,8 @@ public class BoardView extends JComponent implements ActionListener {
                 cardB = null;
             }
 
-
        }
-
-
-
-
-
     }
-
 
     private void delay() {
 
