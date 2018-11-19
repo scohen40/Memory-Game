@@ -90,9 +90,13 @@ public class BoardView extends JComponent implements ActionListener {
     private void hideCard(int x, int y) {
         board.getBoard()[x][y].setHidden(true);
         board.getBoard()[x][y].setViewing(false);
+    }
+    private void matchCard(int x, int y) {
+        board.getBoard()[x][y].setHidden(false);
+        board.getBoard()[x][y].setViewing(false);
+        board.getBoard()[x][y].setMatched(true);
 
     }
-
 
     @Override
     public void actionPerformed(ActionEvent e) {
@@ -107,7 +111,6 @@ public class BoardView extends JComponent implements ActionListener {
        if(cardA != null){
            pointB = getCardLocation((Card)e.getSource());
            cardB = getClickedCard(pointB);
-
            pointB = getCardLocation(cardB);
             if(!cardA.equals(cardB)){
                 flipCard(pointB.x, pointB.y );
@@ -115,8 +118,13 @@ public class BoardView extends JComponent implements ActionListener {
                 System.out.println(cardB.getName());
                 delay();
                 pointA = getCardLocation(cardA);
+                if(cardA.getName().equals(cardB.getName())){
+                    matchCard(pointA.x, pointA.y);
+                    matchCard(pointB.x, pointB.y);
+
+                }
                 hideCard(pointA.x, pointA.y);
-                hideCard(pointB.x, pointB.y );
+                hideCard(pointB.x, pointB.y);
                 cardA = null;
                 cardB = null;
             }
