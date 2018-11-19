@@ -1,20 +1,15 @@
 package board;
 
-import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.image.BufferedImage;
-import java.io.IOException;
 
 public class GameView extends JFrame {
 
     private JPanel board = new JPanel(new BorderLayout());
     private int rows = 4;
     private int cols = 4;
-    private CardView cardView = new CardView(rows, cols);
-    private final ImageIcon HIDDEN_ICON = new ImageIcon("src/images/hidden_image.png");
+    private BoardView boardView = new BoardView(rows, cols);
     private final JPanel panel = new JPanel(new BorderLayout());
 
     public GameView(){
@@ -28,7 +23,7 @@ public class GameView extends JFrame {
 
 
 
-        panel.add(cardView);
+        panel.add(boardView);
         add(panel, BorderLayout.CENTER);
     }
 

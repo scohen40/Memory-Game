@@ -2,7 +2,6 @@ package board;
 
 
 import javax.swing.*;
-import java.awt.image.BufferedImage;
 
 public class Card extends JButton {
 
@@ -10,7 +9,7 @@ public class Card extends JButton {
     private boolean hidden;
     private boolean viewing;
     private boolean matched;
-    private ImageIcon icon;
+    private ImageIcon cardIcon;
 
 
     public Card() {
@@ -51,11 +50,12 @@ public class Card extends JButton {
     }
 
     public void setCardIcon(ImageIcon cardIcon) {
-        this.icon = icon;
+
+        this.cardIcon = cardIcon;
     }
 
     public ImageIcon getCardIcon() {
-        return icon;
+        return cardIcon;
     }
 
 
