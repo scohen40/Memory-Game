@@ -1,6 +1,3 @@
-package board;
-
-
 import javax.swing.*;
 import java.awt.*;
 

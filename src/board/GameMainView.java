@@ -1,10 +1,8 @@
-package board;
-
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
 
-public class Game extends JFrame {
+public class GameMainView extends JFrame {
 
     private JPanel board = new JPanel(new BorderLayout());
     private int rows = 4;
@@ -12,7 +10,7 @@ public class Game extends JFrame {
     private BoardView boardView = new BoardView(rows, cols);
     private final JPanel panel = new JPanel(new BorderLayout());
 
-    public Game(){
+    public GameMainView(){
         setTitle("MEMORY GAME");
         setSize(900, 750);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -28,7 +26,7 @@ public class Game extends JFrame {
     }
 
     public static void main(String[] args) {
-        new Game().setVisible(true);
+        new GameMainView().setVisible(true);
     }
 
 }
