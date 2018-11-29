@@ -13,7 +13,8 @@ public class BoardView extends JComponent implements ActionListener {
     private Card cardA;
     private Card cardB;
 
-
+    private int matches;
+    private boolean gameWon;
 
     private Board board;
     private CardView cardView;
@@ -24,6 +25,9 @@ public class BoardView extends JComponent implements ActionListener {
         this.cols = cols;
         board = new Board(rows, cols);
         board.createBoard();
+
+        matches = 0;
+        gameWon = false;
 
         cardView = new CardView(board);
 
@@ -118,12 +122,16 @@ public class BoardView extends JComponent implements ActionListener {
                 if(cardA.getName().equals(cardB.getName())){ //don't we know that it's the same? aren't they .equals()?
                     matchCard(pointA.x, pointA.y);
                     matchCard(pointB.x, pointB.y);
-
+                    matches++;
                 }
                 hideCard(pointA.x, pointA.y); //why are we hiding the cards if they are matched?
                 hideCard(pointB.x, pointB.y);
                 cardA = null;
                 cardB = null;
+            }
+
+            if(matches == board.getMatches()) {
+               gameWon = true;
             }
 
        }
@@ -140,6 +148,10 @@ public class BoardView extends JComponent implements ActionListener {
         Timer timer = new Timer(2500, displayBoardAction);
         timer.setRepeats(false);
         timer.start();
+    }
+
+    public boolean getGameWon(){
+        return gameWon;
     }
 }
 

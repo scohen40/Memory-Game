@@ -5,6 +5,7 @@ public class Board {
     private int rows;
     private int cols;
     private Card board[][];
+    private int matches;
     private Random RANDOM = new Random();
     private List<String> names;
 
@@ -33,9 +34,9 @@ public class Board {
 
 
     public List<String> createRandomCards() {
-        int size = (rows * cols) / 2;
+        matches = (rows * cols) / 2;
         names = new ArrayList<>();
-        for (int i = 0; i < size; i++) {
+        for (int i = 0; i < matches; i++) {
             int index = RANDOM.nextInt(CardName.getList().size());
             if (!names.contains(CardName.getList().get(index).cardName)) {
                 names.add(CardName.getList().get(index).cardName);
@@ -57,4 +58,7 @@ public class Board {
         return board;
     }
 
+    public int getMatches() {
+        return matches;
+    }
 }

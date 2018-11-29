@@ -5,9 +5,9 @@ import java.awt.*;
 public class GameMainView extends JFrame {
 
     private JPanel board = new JPanel(new BorderLayout());
-    private int rows = 4;
-    private int cols = 4;
-    private BoardView boardView = new BoardView(rows, cols);
+    private static int rows = 4;
+    private static int cols = 4;
+    private static BoardView boardView = new BoardView(rows, cols);
     private final JPanel panel = new JPanel(new BorderLayout());
 
     public GameMainView(){
@@ -18,15 +18,49 @@ public class GameMainView extends JFrame {
        // Border border = BorderFactory.createEmptyBorder(20, 20, 20, 20);
         panel.setBorder(new EmptyBorder(20, 20, 20, 5));
 
-
-
-
         panel.add(boardView);
         add(panel, BorderLayout.CENTER);
+
     }
 
     public static void main(String[] args) {
-        new GameMainView().setVisible(true);
+        playGame();
     }
 
+    private static void playGame() {
+        GameMainView gameView = new GameMainView();
+        int userAnswer;
+        boolean gameViewing = true;
+
+        while(gameViewing) {
+
+            while(!boardView.getGameWon()) {
+                gameView.setVisible(true);
+            }
+            gameView.dispose();
+
+            userAnswer = JOptionPane.showConfirmDialog(null,
+                    "Would you like to play again?",
+                    "You have a great memory.",
+                    JOptionPane.YES_NO_OPTION);
+            if(userAnswer == JOptionPane.NO_OPTION) {
+                JOptionPane.showMessageDialog(null, "Thank you for gameViewing!");
+                System.exit(0);
+            } else if(userAnswer == JOptionPane.YES_OPTION) {
+                reloadGame();
+            }
+            gameViewing = false;
+
+        }
+
+        reloadGame();
+
+    }
+
+    private static void reloadGame() {
+        boardView = new BoardView(rows, cols);
+        playGame();
+    }
 }
+
+
