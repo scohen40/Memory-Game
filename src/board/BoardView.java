@@ -98,33 +98,32 @@ public class BoardView extends JComponent implements ActionListener {
 
     }
 
-    //this method is quite confusing...
     @Override
     public void actionPerformed(ActionEvent e) {
         Point pointA = getCardLocation((Card)e.getSource());
         Point pointB;
        if(cardA == null){
            cardA = getClickedCard(pointA);
-           pointA = getCardLocation(cardA); //why are we doing the same thing 2 times?
+           pointA = getCardLocation(cardA);
            flipCard(pointA.x, pointA.y );
 
        }
        if(cardA != null){
            pointB = getCardLocation((Card)e.getSource());
            cardB = getClickedCard(pointB);
-           pointB = getCardLocation(cardB); //again same thing 2 times??
+           pointB = getCardLocation(cardB);
             if(!cardA.equals(cardB)){
                 flipCard(pointB.x, pointB.y );
-//                System.out.println(cardA.getName());
-//                System.out.println(cardB.getName());
+                System.out.println(cardA.getName());
+                System.out.println(cardB.getName());
                 delay();
-                pointA = getCardLocation(cardA); //why don't we do this at the beginning of the method?
-                if(cardA.getName().equals(cardB.getName())){ //don't we know that it's the same? aren't they .equals()?
+                pointA = getCardLocation(cardA);
+                if(cardA.getName().equals(cardB.getName())){
                     matchCard(pointA.x, pointA.y);
                     matchCard(pointB.x, pointB.y);
                     matches++;
                 }
-                hideCard(pointA.x, pointA.y); //why are we hiding the cards if they are matched?
+                hideCard(pointA.x, pointA.y);
                 hideCard(pointB.x, pointB.y);
                 cardA = null;
                 cardB = null;
@@ -138,7 +137,7 @@ public class BoardView extends JComponent implements ActionListener {
     }
 
     private void delay() {
-        //what is this? what does it do?
+
         Action displayBoardAction = new AbstractAction() {
             public void actionPerformed(ActionEvent e) {
                 displayBoard();
