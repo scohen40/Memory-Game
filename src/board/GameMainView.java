@@ -4,7 +4,6 @@ import java.awt.*;
 
 public class GameMainView extends JFrame {
 
-    private JPanel board = new JPanel(new BorderLayout());
     private static int rows = 4;
     private static int cols = 4;
     private static BoardView boardView = new BoardView(rows, cols);
