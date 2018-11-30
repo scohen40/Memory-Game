@@ -16,7 +16,6 @@ public class BoardView extends JComponent implements ActionListener {
     private board.Card cardB;
 
     private int matches;
-    private boolean gameWon;
 
     private board.Board board;
     private board.CardView cardView;
@@ -37,7 +36,6 @@ public class BoardView extends JComponent implements ActionListener {
         board.createBoard();
 
         matches = 0;
-        gameWon = false;
 
         cardView = new board.CardView(board);
 
@@ -123,8 +121,7 @@ public class BoardView extends JComponent implements ActionListener {
            pointB = getCardLocation(cardB);
             if(!cardA.equals(cardB)){
                 flipCard(pointB.x, pointB.y );
-                System.out.println(cardA.getName());
-                System.out.println(cardB.getName());
+             
                 delay();
                 pointA = getCardLocation(cardA);
                 if(cardA.getName().equals(cardB.getName())){
@@ -158,7 +155,7 @@ public class BoardView extends JComponent implements ActionListener {
 
     public void checkTotalMatches() {
         if (isWon()) {
-            gameWon = true;
+            delay();
             endGameQuery();
         }
     }
