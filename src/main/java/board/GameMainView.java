@@ -6,8 +6,8 @@ import java.awt.*;
 
 public class GameMainView extends JFrame {
 
-    private static int rows = 2;
-    private static int cols = 2;
+    private static int rows = 4;
+    private static int cols = 4;
     private static board.BoardView boardView = new board.BoardView(rows, cols);
     private final JPanel panel = new JPanel(new BorderLayout());
 
