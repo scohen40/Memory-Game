@@ -12,26 +12,34 @@ public class BoardView extends JComponent implements ActionListener {
     private int cols;
     private static final Color backgroundColor = new Color(200, 226, 206);
 
-    private Card cardA;
-    private Card cardB;
+    private board.Card cardA;
+    private board.Card cardB;
 
     private int matches;
     private boolean gameWon;
 
-    private Board board;
-    private CardView cardView;
+    private board.Board board;
+    private board.CardView cardView;
 
     public BoardView(int rows, int cols) {
         super();
         this.rows = rows;
         this.cols = cols;
-        board = new Board(rows, cols);
+        init();
+
+    }
+
+    public void init(){
+
+        removeAll();
+
+        board = new board.Board(rows, cols);
         board.createBoard();
 
         matches = 0;
         gameWon = false;
 
-        cardView = new CardView(board);
+        cardView = new board.CardView(board);
 
         setLayout(new GridLayout(rows, cols, 10, 10));
         for (int x = 0; x < rows; x++) {
@@ -43,7 +51,6 @@ public class BoardView extends JComponent implements ActionListener {
         displayBoard();
 
     }
-
         public void paintComponent(Graphics graphics) {
 
         super.paintComponent(graphics);
@@ -65,12 +72,12 @@ public class BoardView extends JComponent implements ActionListener {
 
 
 
-    private Card getClickedCard(Point point) {
+    private board.Card getClickedCard(Point point) {
 
         return board.getBoard()[point.x][point.y];
     }
 
-    private Point getCardLocation(Card card) {
+    private Point getCardLocation(board.Card card) {
         Point p = new Point();
 
         for (int column = 0; column < rows; column++) {
@@ -102,7 +109,7 @@ public class BoardView extends JComponent implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        Point pointA = getCardLocation((Card)e.getSource());
+        Point pointA = getCardLocation((board.Card)e.getSource());
         Point pointB;
        if(cardA == null){
            cardA = getClickedCard(pointA);
@@ -111,7 +118,7 @@ public class BoardView extends JComponent implements ActionListener {
 
        }
        if(cardA != null){
-           pointB = getCardLocation((Card)e.getSource());
+           pointB = getCardLocation((board.Card)e.getSource());
            cardB = getClickedCard(pointB);
            pointB = getCardLocation(cardB);
             if(!cardA.equals(cardB)){
@@ -150,7 +157,7 @@ public class BoardView extends JComponent implements ActionListener {
     }
 
     public void checkTotalMatches() {
-        if (matches == board.getMatches()) {
+        if (isWon()) {
             gameWon = true;
             endGameQuery();
         }
@@ -175,12 +182,13 @@ public class BoardView extends JComponent implements ActionListener {
     }
 
 
-    private static void resetBoard() {
-        this(rows, cols);
+    private void resetBoard() {
+        init();
     }
 
     public boolean isWon(){
-        return gameWon;
+
+        return matches == board.getMatches();
     }
 }
 

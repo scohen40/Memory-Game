@@ -1,8 +1,6 @@
 package board;
 
 import javax.swing.*;
-import java.awt.*;
-import java.awt.event.ActionListener;
 
 public class CardView  {
 
@@ -11,10 +9,10 @@ public class CardView  {
     private static final String FILE_PREFIX = "src/main/java/images/";
     private static final String FILE_SUFFIX = ".png";
     private ImageIcon imageIcon;
-    private Board board;
+    private board.Board board;
 
 
-    public CardView(Board board) {
+    public CardView(board.Board board) {
         this.board = board;
 
     }

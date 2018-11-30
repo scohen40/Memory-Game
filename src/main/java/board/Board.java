@@ -6,7 +6,7 @@ public class Board {
 
     private int rows;
     private int cols;
-    private Card board[][];
+    private board.Card board[][];
     private int matches;
     private Random RANDOM = new Random();
     private List<String> names;
@@ -14,7 +14,7 @@ public class Board {
     public Board(int rows, int cols) {
         this.rows = rows;
         this.cols = cols;
-        board = new Card[rows][cols];
+        board = new board.Card[rows][cols];
         names = createRandomCards();
     }
 
@@ -23,7 +23,7 @@ public class Board {
         int counter = 0;
         for (int x = 0; x < rows; x++) {
             for (int y = 0; y < cols; y++) {
-                board[x][y] = new Card();
+                board[x][y] = new board.Card();
                 setBoard(x, y, counter);
                 counter++;
             }
@@ -52,11 +52,11 @@ public class Board {
         return names;
     }
 
-    public Card cardLocator(int x, int y) {
+    public board.Card cardLocator(int x, int y) {
         return board[x][y];
     }
 
-    public Card[][] getBoard() {
+    public board.Card[][] getBoard() {
         return board;
     }
 

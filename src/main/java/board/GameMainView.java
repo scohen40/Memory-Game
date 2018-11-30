@@ -6,9 +6,9 @@ import java.awt.*;
 
 public class GameMainView extends JFrame {
 
-    private static int rows = 4;
-    private static int cols = 4;
-    private static BoardView boardView = new BoardView(rows, cols);
+    private static int rows = 2;
+    private static int cols = 2;
+    private static board.BoardView boardView = new board.BoardView(rows, cols);
     private final JPanel panel = new JPanel(new BorderLayout());
 
     public GameMainView(){
@@ -16,7 +16,6 @@ public class GameMainView extends JFrame {
         setSize(900, 750);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocation(340, 80);
-       // Border border = BorderFactory.createEmptyBorder(20, 20, 20, 20);
         panel.setBorder(new EmptyBorder(20, 20, 20, 5));
 
         panel.add(boardView);
