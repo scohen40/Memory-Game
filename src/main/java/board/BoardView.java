@@ -131,9 +131,7 @@ public class BoardView extends JComponent implements ActionListener {
                 cardB = null;
             }
 
-            if(matches == board.getMatches()) {
-               gameWon = true;
-            }
+            checkTotalMatches();
 
        }
     }
@@ -151,7 +149,37 @@ public class BoardView extends JComponent implements ActionListener {
         timer.start();
     }
 
-    public boolean getGameWon(){
+    public void checkTotalMatches() {
+        if (matches == board.getMatches()) {
+            gameWon = true;
+            endGameQuery();
+        }
+    }
+
+    public void endGameQuery() {
+
+        int userAnswer;
+
+        userAnswer = JOptionPane.showConfirmDialog(null,
+                "Would you like to play again?",
+                "You have a great memory.",
+                JOptionPane.YES_NO_OPTION);
+
+        if(userAnswer == JOptionPane.NO_OPTION) {
+            JOptionPane.showMessageDialog(null, "Thank you for gameViewing!");
+            System.exit(0);
+        } else if(userAnswer == JOptionPane.YES_OPTION) {
+            resetBoard();
+        }
+
+    }
+
+
+    private static void resetBoard() {
+        this(rows, cols);
+    }
+
+    public boolean isWon(){
         return gameWon;
     }
 }

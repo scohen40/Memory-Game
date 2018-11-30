@@ -25,43 +25,9 @@ public class GameMainView extends JFrame {
     }
 
     public static void main(String[] args) {
-        playGame();
+        new GameMainView().setVisible(true);
     }
 
-    private static void playGame() {
-        GameMainView gameView = new GameMainView();
-        int userAnswer;
-        boolean gameViewing = true;
-
-        while(gameViewing) {
-
-            while(!boardView.getGameWon()) {
-                gameView.setVisible(true);
-            }
-            gameView.dispose();
-
-            userAnswer = JOptionPane.showConfirmDialog(null,
-                    "Would you like to play again?",
-                    "You have a great memory.",
-                    JOptionPane.YES_NO_OPTION);
-            if(userAnswer == JOptionPane.NO_OPTION) {
-                JOptionPane.showMessageDialog(null, "Thank you for gameViewing!");
-                System.exit(0);
-            } else if(userAnswer == JOptionPane.YES_OPTION) {
-                reloadGame();
-            }
-            gameViewing = false;
-
-        }
-
-        reloadGame();
-
-    }
-
-    private static void reloadGame() {
-        boardView = new BoardView(rows, cols);
-        playGame();
-    }
 }
 
 
