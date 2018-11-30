@@ -8,7 +8,7 @@ public class CardView  {
 
 
     private static final ImageIcon HIDDEN_ICON = createHiddenCardImage();
-    private static final String FILE_PREFIX = "src/images/";
+    private static final String FILE_PREFIX = "src/main/java/images/";
     private static final String FILE_SUFFIX = ".png";
     private ImageIcon imageIcon;
     private Board board;
@@ -47,7 +47,7 @@ public class CardView  {
 
 
     private static ImageIcon createHiddenCardImage() {
-        return new ImageIcon("src/images/hidden_image.png");
+        return new ImageIcon("src/main//java/images/hidden_image.png");
     }
 
 
