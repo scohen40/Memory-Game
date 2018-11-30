@@ -1,3 +1,5 @@
+package board;
+
 public class Properties {
     private static int totalWins;
 
