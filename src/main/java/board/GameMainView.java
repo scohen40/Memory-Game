@@ -7,37 +7,36 @@ import java.awt.event.*;
 
 public class GameMainView extends JFrame {
     
-    private static int rows = 4;
-    private static int cols = 4;
-    private static board.BoardView boardView = new board.BoardView(rows, cols);
-    private static final JPanel panel = new JPanel(new BorderLayout());
+    private int rows = 4;
+    private int cols = 4;
+    private board.BoardView boardView = new board.BoardView(rows, cols);
+    private final JPanel panel = new JPanel(new BorderLayout());
     
-    private static final JMenuBar mnubarMain = new JMenuBar();
+    private final JMenuBar menuBarMain = new JMenuBar();
     
-    private static final JMenu mnuDifficulty = new JMenu("Difficulty");
-    private static final String[] difficulty = {"Easy", "Medium", "Hard"};
-    private static final JMenuItem mnuitmDifficulty[] = new JMenuItem[difficulty.length];
+    private final JMenu menuDifficulty = new JMenu("Difficulty");
+    private final String[] difficulty = {"Easy", "Medium", "Hard"};
+    private final JMenuItem menuItemDifficulty[] = new JMenuItem[difficulty.length];
     
     public GameMainView(){       
         setTitle("MEMORY GAME");
         setSize(900, 750);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setLocation(340, 80);
         setLocationRelativeTo(null);
 
         panel.setBorder(new EmptyBorder(20, 20, 20, 5));
         panel.add(boardView);
         add(panel, BorderLayout.CENTER);
                 
-        for (int i = 0; i < mnuitmDifficulty.length; i++){
-            mnuitmDifficulty[i] = new JMenuItem(difficulty[i]);
-            mnuitmDifficulty[i].addActionListener(new DifficultyAction(i));
-            mnuDifficulty.add(mnuitmDifficulty[i]);
+        for (int i = 0; i < menuItemDifficulty.length; i++){
+            menuItemDifficulty[i] = new JMenuItem(difficulty[i]);
+            menuItemDifficulty[i].addActionListener(new DifficultyAction((i*2)+2));
+            menuDifficulty.add(menuItemDifficulty[i]);
         }
        
-        mnubarMain.add(mnuDifficulty);
+        menuBarMain.add(menuDifficulty);
         
-        setJMenuBar(mnubarMain);
+        setJMenuBar(menuBarMain);
     
     }
 
@@ -46,40 +45,22 @@ public class GameMainView extends JFrame {
        
     }
     
-    private static class DifficultyAction implements ActionListener{
-        int item = 0;
+    private class DifficultyAction implements ActionListener{
+        int size;
         
-        public DifficultyAction(int item) {
-            this.item = item;
+        public DifficultyAction(int size){
+            this.size = size;
             
         }
-
+        
         @Override
         public void actionPerformed(ActionEvent e) {
-            switch (item) {
-                case 0:
-                    boardView.rows = 2;
-                    boardView.cols = 2;
-                    boardView.init();
-                    break;
-                case 1:
-                    boardView.rows = 4;
-                    boardView.cols = 4;
-                    boardView.init();
-                    break;
-                case 2:
-                    boardView.rows = 6;
-                    boardView.cols = 6;
-                    boardView.init();
-                    break;
-                default:
-                    break;
-            }
-                
+            boardView.rows = size;
+            boardView.cols = size;
+            boardView.init();
+
         }
         
     }
 
 }
-
-
