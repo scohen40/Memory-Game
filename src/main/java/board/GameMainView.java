@@ -18,8 +18,6 @@ public class GameMainView extends JFrame {
     private final String[] difficulty = {"Easy", "Medium", "Hard"};
     private final JMenuItem[] menuItemDifficulty = new JMenuItem[difficulty.length];
     
-    private Thread difficultyThread;
-    
     public GameMainView(){       
         setTitle("MEMORY GAME");
         setSize(900, 750);
