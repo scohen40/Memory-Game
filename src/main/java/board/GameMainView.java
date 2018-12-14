@@ -16,7 +16,9 @@ public class GameMainView extends JFrame {
     
     private final JMenu menuDifficulty = new JMenu("Difficulty");
     private final String[] difficulty = {"Easy", "Medium", "Hard"};
-    private final JMenuItem menuItemDifficulty[] = new JMenuItem[difficulty.length];
+    private final JMenuItem[] menuItemDifficulty = new JMenuItem[difficulty.length];
+    
+    private Thread difficultyThread;
     
     public GameMainView(){       
         setTitle("MEMORY GAME");
@@ -55,9 +57,7 @@ public class GameMainView extends JFrame {
         
         @Override
         public void actionPerformed(ActionEvent e) {
-            boardView.rows = size;
-            boardView.cols = size;
-            boardView.init();
+            boardView.resizeBoard(size);
 
         }
         
