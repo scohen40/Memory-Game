@@ -14,4 +14,3 @@ A simple memory picture card game.
 **OPTIONAL TO DO**
 ***
 * Multiplayer Game Class 
-* Easy, Medium, and Hard Levels 
