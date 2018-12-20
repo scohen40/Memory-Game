@@ -187,6 +187,14 @@ public class BoardView extends JComponent implements ActionListener {
 
         return matches == board.getMatches();
     }
+    
+    public void resizeBoard(int size) {
+        rows = size;
+        cols = size;
+        
+        resetBoard();
+        
+    }
 }
 
 
