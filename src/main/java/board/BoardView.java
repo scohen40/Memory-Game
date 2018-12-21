@@ -15,10 +15,18 @@ public class BoardView extends JComponent implements ActionListener {
     private board.Card cardA;
     private board.Card cardB;
 
-    private int matches;
+    public int matches;
 
     private board.Board board;
     private board.CardView cardView;
+
+    protected int scores;
+    protected int scores2;
+    JLabel score,score2;
+
+    private int turn;
+
+
 
     public BoardView(int rows, int cols) {
         super();
@@ -64,6 +72,7 @@ public class BoardView extends JComponent implements ActionListener {
         for (int x = 0; x < rows; x++) {
             for (int y = 0; y < cols; y++) {
                 cardView.assignCards(x, y);
+
             }
         }
     }
@@ -82,6 +91,7 @@ public class BoardView extends JComponent implements ActionListener {
             for (int row = 0; row < cols; row++) {
                 if (board.getBoard()[column][row] == card) {
                     p.setLocation(column, row);
+
                     return p;
                 }
             }
@@ -105,8 +115,13 @@ public class BoardView extends JComponent implements ActionListener {
 
     }
 
+
+
+
     @Override
     public void actionPerformed(ActionEvent e) {
+
+        GameMainView gameMainView=new GameMainView();
         Point pointA = getCardLocation((board.Card)e.getSource());
         Point pointB;
        if(cardA == null){
@@ -121,13 +136,33 @@ public class BoardView extends JComponent implements ActionListener {
            pointB = getCardLocation(cardB);
             if(!cardA.equals(cardB)){
                 flipCard(pointB.x, pointB.y );
-             
+
+                turn++;
                 delay();
                 pointA = getCardLocation(cardA);
                 if(cardA.getName().equals(cardB.getName())){
+
+                     if (gameMainView.choice_2players.getModel().isPressed())
+                    {
+                        {
+                            if (turn % 2 == 1) {
+                                updateScore();
+                            } else {
+                                updateScore2();
+                            }
+                        }
+                    }
+
+                     else
+                     {
+                         updateScore();
+                     }
                     matchCard(pointA.x, pointA.y);
                     matchCard(pointB.x, pointB.y);
                     matches++;
+
+
+
                 }
                 hideCard(pointA.x, pointA.y);
                 hideCard(pointB.x, pointB.y);
@@ -135,10 +170,13 @@ public class BoardView extends JComponent implements ActionListener {
                 cardB = null;
             }
 
+
             checkTotalMatches();
 
        }
     }
+
+
 
     private void delay() {
 
@@ -153,9 +191,80 @@ public class BoardView extends JComponent implements ActionListener {
         timer.start();
     }
 
+
+
+
+    String sco;
+    {
+        int2str();
+        score=new JLabel(sco);
+
+    }
+
+    public void int2str() {
+        score = new JLabel(sco);
+        add(score);
+        sco= String.valueOf("PLAYER1 : " + scores);
+    }
+
+
+
+
+    public void updateScore() {
+        scores++;
+        int2str();
+        score.setSize(50,50);
+        add(score);
+        score.setText(sco);
+    }
+
+
+
+    String sco2;
+    {
+        int2str2();
+        score2=new JLabel(sco2);
+
+    }
+
+    public void int2str2() {
+        score2 = new JLabel(sco2);
+        add(score2,BorderLayout.CENTER);
+        sco2 = String.valueOf("PLAYER2 : " + scores2);
+    }
+
+
+
+
+    public void updateScore2() {
+        scores2++;
+        int2str2();
+        score2.setSize(50,50);
+        add(score2,BorderLayout.NORTH);
+        score2.setText(sco2);
+    }
+
+
     public void checkTotalMatches() {
         if (isWon()) {
+            int userAnswer;
+            if (scores>scores2)
+            {
+
+                JOptionPane.showMessageDialog(null,"WINNER IS PLAYER1");
+            }
+            else if (scores2>scores)
+            {
+                JOptionPane.showMessageDialog(null,"WINNER IS PLAYER1");
+
+            }
+            else {
+                JOptionPane.showMessageDialog(null,"DRAW");
+            }
+            scores=0;
+            scores2=0;
             delay();
+
             endGameQuery();
         }
     }
@@ -174,6 +283,7 @@ public class BoardView extends JComponent implements ActionListener {
             System.exit(0);
         } else if(userAnswer == JOptionPane.YES_OPTION) {
             resetBoard();
+
         }
 
     }
@@ -187,14 +297,15 @@ public class BoardView extends JComponent implements ActionListener {
 
         return matches == board.getMatches();
     }
-    
+
     public void resizeBoard(int size) {
         rows = size;
         cols = size;
-        
+
         resetBoard();
-        
+
     }
+
 }
 
 
